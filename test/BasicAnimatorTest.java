@@ -1,3 +1,7 @@
+import model.BasicAnimator;
+import model.KeyFrame;
+import model.Position;
+import model.ShapeType;
 import org.junit.Test;
 
 import java.awt.Color;

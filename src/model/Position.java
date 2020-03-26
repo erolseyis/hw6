@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a 2D Cartesian position.
  */
@@ -11,7 +13,7 @@ public class Position {
    * @param x The x coordinate.
    * @param y The y coordinate.
    */
-  Position(int x, int y) {
+  public Position(int x, int y) {
     this.x = x;
     this.y = y;
   }

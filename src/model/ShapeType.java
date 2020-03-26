@@ -1,3 +1,5 @@
+package model;
+
 /**
  * The types of shapes allowed in an animation.
  */

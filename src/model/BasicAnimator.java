@@ -1,10 +1,11 @@
-import java.awt.*;
+package model;
+
+import Utilities.MathUtils;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
-import Utilities.MathUtils;
 
 /**
  * Represents an animator that only uses ellipses and rectangles.

@@ -1,4 +1,6 @@
-import java.awt.*;
+package model;
+
+import java.awt.Color;
 
 /**
  * Represents the attributes and location of one of the added shapes at a specific point in time. We
@@ -8,10 +10,10 @@ import java.awt.*;
  * making things easier.
  */
 public class KeyFrame {
-  final Color color;
-  final int w;
-  final int h;
-  final Position position;
+  public final Color color;
+  public final int w;
+  public final int h;
+  public final Position position;
 
   /**
    * Constructs a KeyFrame.
