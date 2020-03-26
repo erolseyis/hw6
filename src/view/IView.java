@@ -1,6 +1,7 @@
 package view;
 
-import cs3500.animator.model.ShapeType;
+
+import model.ShapeType;
 
 public interface IView {
 

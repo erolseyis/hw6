@@ -1,16 +1,17 @@
 package view;
 
-import cs3500.animator.model.Animator;
-import cs3500.animator.model.ShapeType;
+
 import javax.swing.JFrame;
+import model.BasicAnimator;
+import model.ShapeType;
 
 public class TextView extends JFrame implements IView {
 
-  private Animator model;
+  private BasicAnimator model;
   private double speed;
 
 
-  public TextView(Animator model, double speed) {
+  public TextView(BasicAnimator model, double speed) {
     this.model = model;
     this.speed = speed;
   }
@@ -30,8 +31,19 @@ public class TextView extends JFrame implements IView {
     this.speed = newSpeed;
   }
 
+  @Override
+  public String viewType() {
+    return null;
+  }
+
+  @Override
   public String getShapeTypeString(ShapeType type) {
-    return type.toString();
+    if (type == ShapeType.ELLIPSE) {
+      return ShapeType.ELLIPSE.name;
+    }
+    else {
+      return ShapeType.RECTANGLE.name;
+    }
   }
 
 
