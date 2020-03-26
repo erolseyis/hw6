@@ -1,19 +1,20 @@
 package view;
 
-import cs3500.animator.model.BasicAnimator;
-import cs3500.animator.model.KeyFrame;
-import cs3500.animator.model.ShapeType;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JFrame;
+import model.BasicAnimator;
+import model.KeyFrame;
+import model.ShapeType;
 
 public class VisualView extends JFrame implements IView {
 
   private BasicAnimator model;
   private Panel p;
-  private double speed;
+  private int speed;
 
 
   public VisualView(Panel p) {
@@ -51,7 +52,8 @@ public class VisualView extends JFrame implements IView {
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
 
-    for (int i = 0; i < model.getShapesAtTick(speed).size();
+    for (int i = 0; i < model.
+        getShapesAtTick(speed).size();
         i++) {
       Map mp = model.getShapesAtTick(speed).get(i);
       //gets the keyframe present at the model
@@ -61,14 +63,14 @@ public class VisualView extends JFrame implements IView {
       Set<String> keys = mp.keySet();
       for (String k : keys) {
         if (model.getShape(k) == ShapeType.RECTANGLE) {
-          g.setColor(kf.getColor);
-          g.fillRect((kf.getPosX(), kf.getPosY(),
+          g.setColor(kf.getColor());
+          g.fillRect((kf.getPositionX()), kf.getPositionY(),
               kf.getWidth(),  kf.getHeight());
         }
 
-        else if (model.getShape(k) == ShapeType.ELLIPSE)) {
-          g.setColor(kf.getColor);
-          g.fillRect((kf.getPosX(), kf.getPosY(),
+        else if (model.getShape(k) == ShapeType.ELLIPSE) {
+          g.setColor(kf.getColor());
+          g.fillRect((kf.getPositionX(), kf.getPositionY(),
               kf.getWidth(),  kf.getHeight());
         }
       }

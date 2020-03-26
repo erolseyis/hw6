@@ -10,6 +10,7 @@ import java.awt.Color;
  * making things easier.
  */
 public class KeyFrame {
+
   public final Color color;
   public final int w;
   public final int h;
@@ -47,8 +48,50 @@ public class KeyFrame {
   @Override
   public String toString() {
     return this.position.toString() +
-            "\tHeight: " + this.h +
-            "\tWidth: " + this.w +
-            "\tColor: " + this.color.toString();
+        "\tHeight: " + this.h +
+        "\tWidth: " + this.w +
+        "\tColor: " + this.color.toString();
+  }
+
+  /**
+   * Returns the color of the KeyFrame.
+   **/
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
+   * Returns the height of the KeyFrame.
+   **/
+  public int getHeight() {
+    return this.h;
+  }
+
+  /**
+   * Returns the width of the KeyFrame.
+   **/
+  public int getWidth() {
+    return this.w;
+  }
+
+  /**
+   * Returns the position of the KeyFrame.
+   **/
+  public Position getPosition() {
+    return this.position;
+  }
+
+  /**
+   * Returns the x coordinate of the KeyFrame.
+   **/
+  public int getPositionX() {
+    return this.position.getX();
+  }
+
+  /**
+   * Returns the y coordinate of the KeyFrame.
+   **/
+  public int getPositionY() {
+    return this.position.getY();
   }
 }
