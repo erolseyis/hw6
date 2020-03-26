@@ -1,14 +1,16 @@
 package model;
 
-import util.MathUtils;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import util.AnimationBuilder;
+import util.MathUtils;
+
 /**
- * Represents an animator that only uses ellipses and rectangles.
+ * Models an animation that only uses ellipses and rectangles.
  */
 public class BasicAnimator implements Animator {
   // The named shapes that have been created
@@ -64,7 +66,43 @@ public class BasicAnimator implements Animator {
   }
 
   @Override
-  public ShapeType getShape(String name) {
+  public void addMotion(String name, int t1, KeyFrame start, int t2, KeyFrame end) {
+    if (name == null) {
+      throw new IllegalArgumentException("name cannot be null");
+    }
+    if (start == null || end == null) {
+      throw new IllegalArgumentException("cannot add null keyframes");
+    }
+    if (t2 <= t1) {
+      throw new IllegalArgumentException("motion must end at a larger time than its start");
+    }
+
+    NavigableMap<Integer, KeyFrame> shapeKeyFrames = this.getShapeKeyFrames(name);
+
+    if (!shapeKeyFrames.isEmpty()) {
+      int timelineEnd = shapeKeyFrames.lastKey();
+      int timelineStart = shapeKeyFrames.firstKey();
+
+      // A motion that starts before the existent timeline and ends at the timeline's start
+      if (t1 < timelineStart) {
+        if (!(t2 == timelineStart && shapeKeyFrames.get(timelineStart).equals(end))) {
+          throw new IllegalArgumentException("motion inconsistent with shape timeline");
+        }
+        this.addKeyFrame(name, t1, start);
+      } else { // A motion that starts at the end of the existent timeline and ends beyond it
+        if (!(t1 == timelineEnd && shapeKeyFrames.get(timelineEnd).equals(start))) {
+          throw new IllegalArgumentException("motion inconsistent with shape timeline");
+        }
+        this.addKeyFrame(name, t2, end);
+      }
+    } else { // A motion can always be added to an empty timeline
+      this.addKeyFrame(name, t1, start);
+      this.addKeyFrame(name, t2, end);
+    }
+  }
+
+  @Override
+  public ShapeType getShapeType(String name) {
     if (name == null) {
       throw new IllegalArgumentException("name cannot be null");
     }
@@ -74,6 +112,19 @@ public class BasicAnimator implements Animator {
     }
 
     return this.shapes.get(name);
+  }
+
+  @Override
+  public NavigableMap<Integer, KeyFrame> getShapeKeyFrames(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("name cannot be null");
+    }
+
+    if (!this.shapeTimelines.containsKey(name)) {
+      throw new IllegalArgumentException("shape with given name does not exist");
+    }
+
+    return this.shapeTimelines.get(name);
   }
 
   @Override
@@ -95,20 +146,20 @@ public class BasicAnimator implements Animator {
           continue;
         }
         KeyFrame kf2 = nextState.getValue();
-        int lastRed = kf1.color.getRed();
-        int nextRed = kf2.color.getRed();
-        int lastGreen = kf1.color.getGreen();
-        int nextGreen = kf2.color.getGreen();
-        int lastBlue = kf1.color.getBlue();
-        int nextBlue = kf2.color.getBlue();
-        int lastH = kf1.h;
-        int nextH = kf2.h;
-        int lastW = kf1.w;
-        int nextW = kf2.w;
-        int lastX = kf1.position.getX();
-        int nextX = kf2.position.getX();
-        int lastY = kf1.position.getY();
-        int nextY = kf2.position.getY();
+        int lastRed = kf1.getColor().getRed();
+        int nextRed = kf2.getColor().getRed();
+        int lastGreen = kf1.getColor().getGreen();
+        int nextGreen = kf2.getColor().getGreen();
+        int lastBlue = kf1.getColor().getBlue();
+        int nextBlue = kf2.getColor().getBlue();
+        int lastH = kf1.getHeight();
+        int nextH = kf2.getHeight();
+        int lastW = kf1.getWidth();
+        int nextW = kf2.getWidth();
+        int lastX = kf1.getPosition().getX();
+        int nextX = kf2.getPosition().getX();
+        int lastY = kf1.getPosition().getY();
+        int nextY = kf2.getPosition().getY();
         int newRed = new MathUtils().interpolate(t1, lastRed, t2, nextRed, tick);
         int newGreen = new MathUtils().interpolate(t1, lastGreen, t2, nextGreen, tick);
         int newBlue = new MathUtils().interpolate(t1, lastBlue, t2, nextBlue, tick);
@@ -120,8 +171,56 @@ public class BasicAnimator implements Animator {
         Position newPosition = new Position(newX, newY);
         shapeKeyFrames.put(entry.getKey(), new KeyFrame(newColor, newW, newH, newPosition));
       }
+      // The shape has been given no more directions but should still appear where it was
+      if (previousState != null && nextState == null) {
+        shapeKeyFrames.put(entry.getKey(), previousState.getValue());
+      }
     }
     return shapeKeyFrames;
+  }
+
+  @Override
+  public void removeShape(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("name cannot be null");
+    }
+
+    if (!this.shapeTimelines.containsKey(name)) {
+      throw new IllegalArgumentException("shape with given name does not exist");
+    }
+
+    this.shapeTimelines.remove(name);
+    this.shapes.remove(name);
+  }
+
+  @Override
+  public void removeMotion(String name, boolean last) {
+    if (name == null) {
+      throw new IllegalArgumentException("name cannot be null");
+    }
+
+    if (!this.shapeTimelines.containsKey(name)) {
+      throw new IllegalArgumentException("shape with given name does not exist");
+    }
+
+    int numKeyFrames = this.shapeTimelines.get(name).size();
+
+    // 0 or 1 KeyFrames does not constitute a motion
+    if (this.shapeTimelines.get(name).isEmpty() || numKeyFrames == 1) {
+      throw new IllegalArgumentException("no motions to remove");
+    }
+    // 2 KeyFrames is a single motion, so remove both
+    if (numKeyFrames == 2) {
+      shapeTimelines.get(name).clear();
+    } else { // Remove the first or last KeyFrame
+      int key;
+      if (last) {
+        key = shapeTimelines.get(name).lastKey();
+      } else {
+        key = shapeTimelines.get(name).firstKey();
+      }
+      shapeTimelines.get(name).remove(key);
+    }
   }
 
   @Override
@@ -146,8 +245,60 @@ public class BasicAnimator implements Animator {
     }
     return output.toString();
   }
-  // A more complex animator could implement convenience methods such as "doNothing" that finds
-  // the last KeyFrame and adds a KeyFrame with the same state at a tick which is necessarily
-  // larger than the last KeyFrame's tick, essentially making the shape not change until the
-  // given tick.
+
+  public static final class BasicAnimationBuilder implements AnimationBuilder<Animator> {
+
+    int x;
+    int y;
+    int width;
+    int height;
+
+    private Animator animator;
+
+    public BasicAnimationBuilder() {
+      this.animator = new BasicAnimator();
+    }
+
+    @Override
+    public Animator build() {
+      return animator;
+    }
+
+    @Override
+    public AnimationBuilder<Animator> setBounds(int x, int y, int width, int height) {
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<Animator> declareShape(String name, String type) {
+      if (type.equals("rectangle")) {
+        animator.addShape(ShapeType.RECTANGLE, name);
+      } else if (type.equals("ellipse")) {
+        animator.addShape(ShapeType.ELLIPSE, name);
+      } else {
+        throw new IllegalArgumentException("unsupported shape type");
+      }
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<Animator> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
+                                                int r1, int g1, int b1, int t2, int x2, int y2,
+                                                int w2, int h2, int r2, int g2, int b2) {
+      animator.addMotion(name, t1, new KeyFrame(new Color(r1, b1, g1), w1, h1, new Position(x1, y1)),
+              t2, new KeyFrame(new Color(r2, b2, g2), w2, h2, new Position(x2, y2)));
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<Animator> addKeyframe(String name, int t, int x, int y, int w, int h,
+                                                  int r, int g, int b) {
+      animator.addKeyFrame(name, t, new KeyFrame(new Color(r, g, b), w, h, new Position(x, y)));
+      return this;
+    }
+  }
 }

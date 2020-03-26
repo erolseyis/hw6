@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Useful utility methods that deal with some of the math operations in the animator.
+ */
 public class MathUtils {
 
   /**

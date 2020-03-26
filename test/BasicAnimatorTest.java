@@ -1,11 +1,13 @@
-import model.BasicAnimator;
-import model.KeyFrame;
-import model.Position;
-import model.ShapeType;
 import org.junit.Test;
 
 import java.awt.Color;
 import java.util.Map;
+import java.util.NavigableMap;
+
+import model.BasicAnimator;
+import model.KeyFrame;
+import model.Position;
+import model.ShapeType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -30,14 +32,14 @@ public class BasicAnimatorTest {
   public void testAddGetShapeRectangle() {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
-    assertEquals(ShapeType.RECTANGLE, a.getShape("R"));
+    assertEquals(ShapeType.RECTANGLE, a.getShapeType("R"));
   }
 
   @Test
   public void testAddGetShapeEllipse() {
     init();
     a.addShape(ShapeType.ELLIPSE, "C");
-    assertEquals(ShapeType.ELLIPSE, a.getShape("C"));
+    assertEquals(ShapeType.ELLIPSE, a.getShapeType("C"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -69,14 +71,14 @@ public class BasicAnimatorTest {
   public void testGetShapeNullShape() {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
-    a.getShape(null);
+    a.getShapeType(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testGetShapeNonexistentShape() {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
-    a.getShape("C");
+    a.getShapeType("C");
   }
 
   // addKeyFrame() and getShapesAtTick
@@ -115,36 +117,37 @@ public class BasicAnimatorTest {
     assertEquals(2, shapesTick10.size());
     assertTrue(shapesTick10.containsKey("R") && shapesTick10.containsKey("C"));
 
-    assertEquals(1, shapesTick50.size());
-    assertTrue(shapesTick50.containsKey("R"));
+    assertEquals(2, shapesTick50.size());
+    assertTrue(shapesTick50.containsKey("R") && shapesTick10.containsKey("C"));
 
-    assertEquals(0, shapesTick51.size());
+    assertEquals(2, shapesTick51.size());
+    assertTrue(shapesTick50.containsKey("R") && shapesTick10.containsKey("C"));
 
     // Ensure that we get the right values if the tick is the same as one of the added KF's
-    assertEquals(Color.RED, shapesTick1.get("R").color);
-    assertEquals(50, shapesTick1.get("R").w);
-    assertEquals(100, shapesTick1.get("R").h);
-    assertEquals(200, shapesTick1.get("R").position.getX());
-    assertEquals(200, shapesTick1.get("R").position.getY());
+    assertEquals(Color.RED, shapesTick1.get("R").getColor());
+    assertEquals(50, shapesTick1.get("R").getWidth());
+    assertEquals(100, shapesTick1.get("R").getHeight());
+    assertEquals(200, shapesTick1.get("R").getPosition().getX());
+    assertEquals(200, shapesTick1.get("R").getPosition().getY());
 
-    assertEquals(Color.RED, shapesTick1.get("R").color);
-    assertEquals(50, shapesTick10.get("R").w);
-    assertEquals(100, shapesTick10.get("R").h);
-    assertEquals(10, shapesTick10.get("R").position.getX());
-    assertEquals(200, shapesTick10.get("R").position.getY());
+    assertEquals(Color.RED, shapesTick1.get("R").getColor());
+    assertEquals(50, shapesTick10.get("R").getWidth());
+    assertEquals(100, shapesTick10.get("R").getHeight());
+    assertEquals(10, shapesTick10.get("R").getPosition().getX());
+    assertEquals(200, shapesTick10.get("R").getPosition().getY());
 
     // Ensure that we've interpolated all values correctly if the tick is between two added KF's
-    assertEquals(new Color(127, 0, 127), shapesTick10.get("C").color);
-    assertEquals(420, shapesTick10.get("C").w);
-    assertEquals(69, shapesTick10.get("C").h);
-    assertEquals(420, shapesTick10.get("C").position.getX());
-    assertEquals(69, shapesTick10.get("C").position.getY());
+    assertEquals(new Color(127, 0, 127), shapesTick10.get("C").getColor());
+    assertEquals(420, shapesTick10.get("C").getWidth());
+    assertEquals(69, shapesTick10.get("C").getHeight());
+    assertEquals(420, shapesTick10.get("C").getPosition().getX());
+    assertEquals(69, shapesTick10.get("C").getPosition().getY());
 
-    assertEquals(Color.RED, shapesTick1.get("R").color);
-    assertEquals(50, shapesTick50.get("R").w);
-    assertEquals(100, shapesTick50.get("R").h);
-    assertEquals(300, shapesTick50.get("R").position.getX());
-    assertEquals(300, shapesTick50.get("R").position.getY());
+    assertEquals(Color.RED, shapesTick50.get("R").getColor());
+    assertEquals(50, shapesTick50.get("R").getWidth());
+    assertEquals(100, shapesTick50.get("R").getHeight());
+    assertEquals(300, shapesTick50.get("R").getPosition().getX());
+    assertEquals(300, shapesTick50.get("R").getPosition().getY());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -170,6 +173,100 @@ public class BasicAnimatorTest {
     a.addKeyFrame("R", 0, new KeyFrame(Color.RED,
             50, 100, new Position(200, 200)));
   }
+
+  // addMotion()
+
+  @Test
+  public void testAddMotion() {
+    init();
+    a.addShape(ShapeType.RECTANGLE, "R");
+    a.addMotion("R", 11, new KeyFrame(Color.RED,
+                    50, 100, new Position(200, 200)),
+            20, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)));
+
+    a.addMotion("R", 20, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)),
+            50, new KeyFrame(Color.RED,
+                    50, 100, new Position(300, 300)));
+
+    a.addMotion("R", 1, new KeyFrame(Color.RED,
+                    25, 50, new Position(100, 100)),
+            11, new KeyFrame(Color.RED,
+                    50, 100, new Position(200, 200)));
+
+    NavigableMap<Integer, KeyFrame> kfs = a.getShapeKeyFrames("R");
+    assertEquals(4, kfs.size());
+    assertTrue(kfs.containsKey(1) && kfs.containsKey(11) && kfs.containsKey(20)
+            && kfs.containsKey(50));
+
+    assertEquals(Color.RED, kfs.get(1).getColor());
+    assertEquals(25, kfs.get(1).getWidth());
+    assertEquals(50, kfs.get(1).getHeight());
+    assertEquals(100, kfs.get(1).getPosition().getX());
+    assertEquals(100, kfs.get(1).getPosition().getY());
+
+    assertEquals(Color.RED, kfs.get(11).getColor());
+    assertEquals(50, kfs.get(11).getWidth());
+    assertEquals(100, kfs.get(11).getHeight());
+    assertEquals(200, kfs.get(11).getPosition().getX());
+    assertEquals(200, kfs.get(11).getPosition().getY());
+
+    assertEquals(Color.RED, kfs.get(20).getColor());
+    assertEquals(50, kfs.get(20).getWidth());
+    assertEquals(100, kfs.get(20).getHeight());
+    assertEquals(10, kfs.get(20).getPosition().getX());
+    assertEquals(200, kfs.get(20).getPosition().getY());
+
+    assertEquals(Color.RED, kfs.get(50).getColor());
+    assertEquals(50, kfs.get(50).getWidth());
+    assertEquals(100, kfs.get(50).getHeight());
+    assertEquals(300, kfs.get(50).getPosition().getX());
+    assertEquals(300, kfs.get(50).getPosition().getY());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddMotionConflictingKeyFrames() {
+    init();
+    a.addShape(ShapeType.RECTANGLE, "R");
+    a.addMotion("R", 11, new KeyFrame(Color.RED,
+                    50, 100, new Position(200, 200)),
+            20, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)));
+    a.addMotion("R", 20, new KeyFrame(Color.RED,
+                    50, 10, new Position(10, 200)),
+            50, new KeyFrame(Color.RED,
+                    50, 100, new Position(300, 300)));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddMotionAppendTeleportation() {
+    init();
+    a.addShape(ShapeType.RECTANGLE, "R");
+    a.addMotion("R", 11, new KeyFrame(Color.RED,
+                    50, 100, new Position(200, 200)),
+            20, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)));
+    a.addMotion("R", 21, new KeyFrame(Color.RED,
+                    50, 10, new Position(10, 200)),
+            50, new KeyFrame(Color.RED,
+                    50, 100, new Position(300, 300)));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddMotionPrependConflictingTimes() {
+    init();
+    a.addShape(ShapeType.RECTANGLE, "R");
+    a.addMotion("R", 11, new KeyFrame(Color.RED,
+                    50, 100, new Position(200, 200)),
+            20, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)));
+    a.addMotion("R", 1, new KeyFrame(Color.RED,
+                    50, 100, new Position(10, 200)),
+            12, new KeyFrame(Color.RED,
+                    50, 100, new Position(300, 300)));
+  }
+
   // toString()
 
   @Test
@@ -201,8 +298,8 @@ public class BasicAnimatorTest {
     init();
 
     a.addShape(ShapeType.RECTANGLE, "R");
-    a.addShape(ShapeType.ELLIPSE, "C");
 
+    a.addShape(ShapeType.ELLIPSE, "C");
     // R's KeyFrame's
     a.addKeyFrame("R", 1, new KeyFrame(Color.RED,
             50, 100, new Position(200, 200)));

@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.Objects;
 
 /**
  * Represents the attributes and location of one of the added shapes at a specific point in time. We
@@ -11,10 +12,10 @@ import java.awt.Color;
  */
 public class KeyFrame {
 
-  public final Color color;
-  public final int w;
-  public final int h;
-  public final Position position;
+  private final Color color;
+  private final int w;
+  private final int h;
+  private final Position position;
 
   /**
    * Constructs a KeyFrame.
@@ -53,6 +54,22 @@ public class KeyFrame {
         "\tColor: " + this.color.toString();
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    KeyFrame keyFrame = (KeyFrame) o;
+    return w == keyFrame.w &&
+            h == keyFrame.h &&
+            color.equals(keyFrame.color) &&
+            position.equals(keyFrame.position);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(color, w, h, position);
+  }
+
   /**
    * Returns the color of the KeyFrame.
    **/
@@ -79,40 +96,5 @@ public class KeyFrame {
    **/
   public Position getPosition() {
     return this.position;
-  }
-
-  /**
-   * Returns the x coordinate of the KeyFrame.
-   **/
-  public int getPositionX() {
-    return this.position.getX();
-  }
-
-  /**
-   * Returns the y coordinate of the KeyFrame.
-   **/
-  public int getPositionY() {
-    return this.position.getY();
-  }
-
-  /**
-   * Returns the R value of KeyFrame's color.
-   **/
-  public int getR() {
-    return this.color.getRed();
-  }
-
-  /**
-   * Returns the G value of KeyFrame's color.
-   **/
-  public int getG() {
-    return this.color.getGreen();
-  }
-
-  /**
-   * Returns the B value of KeyFrame's color.
-   **/
-  public int getB() {
-    return this.color.getBlue();
   }
 }
