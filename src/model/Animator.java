@@ -84,4 +84,21 @@ public interface Animator {
    *                                  motions to remove.
    */
   void removeMotion(String name, boolean last);
+
+  /**
+   * Gets the dimensions of the canvas or bounding box for the animation.
+   *
+   * @return The dimensions of the canvas or bounding box for the animation.
+   */
+  CanvasDims getCanvasDims();
+
+
+  /**
+   * Sets the dimensions of the canvas or bounding box for the animation.
+   *
+   * @param dims The dimensions of the canvas.
+   */
+  void setCanvasDims(CanvasDims dims);
+
+
 }

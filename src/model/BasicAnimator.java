@@ -13,10 +13,15 @@ import util.MathUtils;
  * Models an animation that only uses ellipses and rectangles.
  */
 public class BasicAnimator implements Animator {
+
   // The named shapes that have been created
-  public Map<String, ShapeType> shapes;
+  private Map<String, ShapeType> shapes;
+
   // Maps the names of the shapes to their states at each specified KeyFrame
-  public Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
+  private Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
+
+  // Bounding box dimensions
+  private CanvasDims dims;
 
   /**
    * Constructs a BasicAnimator.
@@ -224,6 +229,16 @@ public class BasicAnimator implements Animator {
   }
 
   @Override
+  public CanvasDims getCanvasDims() {
+    return this.dims;
+  }
+
+  @Override
+  public void setCanvasDims(CanvasDims dims) {
+    this.dims = dims;
+  }
+
+  @Override
   public String toString() {
     StringBuilder output = new StringBuilder();
     for (String name : this.shapes.keySet()) {
@@ -246,12 +261,11 @@ public class BasicAnimator implements Animator {
     return output.toString();
   }
 
-  public static final class BasicAnimationBuilder implements AnimationBuilder<Animator> {
 
-    int x;
-    int y;
-    int width;
-    int height;
+  /**
+   * The builder class for a BasicAnimator.
+   */
+  public static final class BasicAnimationBuilder implements AnimationBuilder<Animator> {
 
     private Animator animator;
 
@@ -266,10 +280,7 @@ public class BasicAnimator implements Animator {
 
     @Override
     public AnimationBuilder<Animator> setBounds(int x, int y, int width, int height) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
+      animator.setCanvasDims(new CanvasDims(x, y, width, height));
       return this;
     }
 
