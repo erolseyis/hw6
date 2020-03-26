@@ -5,7 +5,7 @@ import model.ShapeType;
 
 public interface IView {
 
-  void runAnimation();
+  //void runAnimation();
 
   double getSpeed();
 
@@ -15,6 +15,6 @@ public interface IView {
 
   String getShapeTypeString(ShapeType type);
 
-  //IView render();
+  void render();
 
 }

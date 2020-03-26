@@ -12,9 +12,9 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class BasicAnimator implements Animator {
   // The named shapes that have been created
-  private Map<String, ShapeType> shapes;
+  public Map<String, ShapeType> shapes;
   // Maps the names of the shapes to their states at each specified KeyFrame
-  private Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
+  public Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
 
   /**
    * Constructs a BasicAnimator.

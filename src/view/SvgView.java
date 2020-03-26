@@ -1,6 +1,7 @@
 package view;
 
-import cs3500.animator.model.ShapeType;
+
+import model.ShapeType;
 
 public class SvgView implements IView {
 
@@ -10,10 +11,10 @@ public class SvgView implements IView {
     this.speed = speed;
   }
 
-  @Override
-  public void runAnimation() {
-
-  }
+//  @Override
+//  public void runAnimation() {
+//
+//  }
 
   @Override
   public double getSpeed() {
@@ -32,6 +33,11 @@ public class SvgView implements IView {
   @Override
   public String getShapeTypeString(ShapeType type) {
     return type.toString();
+  }
+
+  @Override
+  public void render() {
+
   }
 
 

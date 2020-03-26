@@ -1,6 +1,5 @@
 package view;
 
-import cs3500.animator.model.ShapeType;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +7,7 @@ import java.awt.List;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
+import model.ShapeType;
 
 public class Panel extends JPanel {
 
@@ -31,7 +31,7 @@ public class Panel extends JPanel {
         int d1 = (int) s.getD1();
         int d2 = (int) s.getD2();
         Color c = s.getColor();
-        if (s.getShapeType().equals(ShapeType.OVAL)) {
+        if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
           g2d.setColor(c);
           g2d.fillOval(x, y, d1 * 2, d2 * 2);
           g2d.drawOval(x, y, d1 * 2, d2 * 2);
