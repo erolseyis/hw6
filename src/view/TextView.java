@@ -18,10 +18,6 @@ public class TextView extends JFrame implements IView {
     this.speed = speed;
   }
 
-//  @Override
-//  public void runAnimation() {
-//
-//  }
 
 
   public double getSpeed() {
@@ -29,7 +25,7 @@ public class TextView extends JFrame implements IView {
   }
 
   @Override
-  public void setSpeed(double newSpeed) {
+  public void setSpeed(int newSpeed) {
     this.speed = newSpeed;
   }
 

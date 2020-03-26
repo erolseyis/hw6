@@ -1,6 +1,6 @@
 package model;
 
-import Utilities.MathUtils;
+import util.MathUtils;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,7 +146,6 @@ public class BasicAnimator implements Animator {
     }
     return output.toString();
   }
-
   // A more complex animator could implement convenience methods such as "doNothing" that finds
   // the last KeyFrame and adds a KeyFrame with the same state at a tick which is necessarily
   // larger than the last KeyFrame's tick, essentially making the shape not change until the

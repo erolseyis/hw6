@@ -7,7 +7,7 @@ public class SvgView implements IView {
 
   private double speed;
 
-  public SvgView(double speed) {
+  public SvgView(int speed) {
     this.speed = speed;
   }
 
@@ -21,13 +21,13 @@ public class SvgView implements IView {
     return this.speed;
   }
 
-  public void setSpeed(double newSpeed) {
+  public void setSpeed(int newSpeed) {
     this.speed = newSpeed;
   }
 
   @Override
   public String viewType() {
-    return null;
+    return "SVG View";
   }
 
   @Override

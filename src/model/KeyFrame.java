@@ -94,4 +94,25 @@ public class KeyFrame {
   public int getPositionY() {
     return this.position.getY();
   }
+
+  /**
+   * Returns the R value of KeyFrame's color.
+   **/
+  public int getR() {
+    return this.color.getRed();
+  }
+
+  /**
+   * Returns the G value of KeyFrame's color.
+   **/
+  public int getG() {
+    return this.color.getGreen();
+  }
+
+  /**
+   * Returns the B value of KeyFrame's color.
+   **/
+  public int getB() {
+    return this.color.getBlue();
+  }
 }

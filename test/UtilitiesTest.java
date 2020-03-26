@@ -1,11 +1,9 @@
 import org.junit.Test;
 
-import java.awt.Color;
-
 
 import static org.junit.Assert.assertEquals;
 
-import Utilities.MathUtils;
+import util.MathUtils;
 
 
 public class UtilitiesTest {

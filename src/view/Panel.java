@@ -1,52 +1,62 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.List;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JPanel;
+import model.BasicAnimator;
+import model.KeyFrame;
 import model.ShapeType;
 
 public class Panel extends JPanel {
 
-  private List<Shape> shapes;
+    private BasicAnimator model;
+    private int time = 0;
+
+    /**
+     * Constructor.
+     * @param model use this model to construct this AnimatorPanel
+     */
+    public Panel(BasicAnimator model) {
+      this.model = model;
+
+      this.setLayout(new BorderLayout());
+
+    }
 
 
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
 
-    Graphics2D gfx = (Graphics2D) g;
+  public void draw(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
 
-    g2d.setColor(Color.BLACK);
+    // needs zach's help
+    for (int i = 0; i < model.getShapesAtTick(time).size();
+        i++) {
+      Map mp = model.getShapesAtTick(time).get(i);
+      //gets the keyframe present at the model
+      KeyFrame kf = model.getKeyFrame();
 
-    AffineTransform originalTransform = gfx.getTransform();
+      // Get all keys
+      Set<String> keys = mp.keySet();
+      for (String k : keys) {
+        if (model.getShape(k) == ShapeType.RECTANGLE) {
+          g.setColor(kf.getColor());
+          g.fillRect((kf.getPositionX()), kf.getPositionY(),
+              kf.getWidth(),  kf.getHeight());
+        }
 
-    for (Shapes s : shapes) {
-      if (s.getRender()) {
-        Posn p = s.getPosn();
-        int x = (int) p.getX();
-        int y = (int) p.getY();
-        int d1 = (int) s.getD1();
-        int d2 = (int) s.getD2();
-        Color c = s.getColor();
-        if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
-          g2d.setColor(c);
-          g2d.fillOval(x, y, d1 * 2, d2 * 2);
-          g2d.drawOval(x, y, d1 * 2, d2 * 2);
-        } else if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
-          g2d.setColor(c);
-          g2d.fillRect(x, y, d1, d2);
-          g2d.drawRect(x, y, d1, d2);
+        else if (model.getShape(k) == ShapeType.ELLIPSE) {
+          g.setColor(kf.getColor());
+          g.fillRect((kf.getPositionX(), kf.getPositionY(),
+              kf.getWidth(), kf.getHeight());
         }
       }
     }
-
-    g2d.setTransform(originalTransform);
   }
-
-
-}
 }
 

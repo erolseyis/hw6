@@ -9,7 +9,7 @@ public interface IView {
 
   double getSpeed();
 
-  void setSpeed(double newSpeed);
+  void setSpeed(int newSpeed);
 
   String viewType();
 

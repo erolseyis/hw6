@@ -1,51 +1,59 @@
 package view;
 
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import model.BasicAnimator;
 import model.ShapeType;
+import util.PanelUtils;
 
 public class VisualView extends JFrame implements IView {
 
   private BasicAnimator model;
-  //private Panel p;
+  Panel panel;
   private int speed;
 
 
 
-  public VisualView(Panel p) {
-    //this.p = p;
+  public VisualView(Panel pane;, int speed) {
+    this.panel = panel;
     this.speed = speed;
   }
 
 
-//  @Override
-//  public void runAnimation() {
-//
-//  }
-
   @Override
   public double getSpeed() {
-    return 0;
+    return this.speed;
   }
 
   @Override
-  public void setSpeed(double newSpeed) {
-
+  public void setSpeed(int newSpeed) {
+    this.speed = newSpeed;
   }
 
   @Override
   public String viewType() {
-    return null;
+    return "Visual View";
   }
 
   @Override
   public String getShapeTypeString(ShapeType type) {
-    return null;
+    return type.toString();
   }
 
   @Override
   public void render() {
+    this.setTitle("BasicAnimator");
+    this.setSize(PanelUtils.panelDimension);
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+    this.setLayout(new BorderLayout());
+
+    this.panel = new Panel(model);
+    panel.setPreferredSize(PanelUtils.panelDimension);
+
 
   }
 
