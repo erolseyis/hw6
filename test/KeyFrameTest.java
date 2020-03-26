@@ -1,3 +1,5 @@
+import model.KeyFrame;
+import model.Position;
 import org.junit.Test;
 
 import java.awt.Color;

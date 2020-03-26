@@ -1,4 +1,4 @@
-package Utilities;
+package util;
 
 public class MathUtils {
 

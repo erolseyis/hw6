@@ -1,4 +1,6 @@
-import java.awt.*;
+package model;
+
+import java.awt.Color;
 
 /**
  * Represents the attributes and location of one of the added shapes at a specific point in time. We
@@ -8,10 +10,11 @@ import java.awt.*;
  * making things easier.
  */
 public class KeyFrame {
-  final Color color;
-  final int w;
-  final int h;
-  final Position position;
+
+  public final Color color;
+  public final int w;
+  public final int h;
+  public final Position position;
 
   /**
    * Constructs a KeyFrame.
@@ -45,8 +48,71 @@ public class KeyFrame {
   @Override
   public String toString() {
     return this.position.toString() +
-            "\tHeight: " + this.h +
-            "\tWidth: " + this.w +
-            "\tColor: " + this.color.toString();
+        "\tHeight: " + this.h +
+        "\tWidth: " + this.w +
+        "\tColor: " + this.color.toString();
+  }
+
+  /**
+   * Returns the color of the KeyFrame.
+   **/
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
+   * Returns the height of the KeyFrame.
+   **/
+  public int getHeight() {
+    return this.h;
+  }
+
+  /**
+   * Returns the width of the KeyFrame.
+   **/
+  public int getWidth() {
+    return this.w;
+  }
+
+  /**
+   * Returns the position of the KeyFrame.
+   **/
+  public Position getPosition() {
+    return this.position;
+  }
+
+  /**
+   * Returns the x coordinate of the KeyFrame.
+   **/
+  public int getPositionX() {
+    return this.position.getX();
+  }
+
+  /**
+   * Returns the y coordinate of the KeyFrame.
+   **/
+  public int getPositionY() {
+    return this.position.getY();
+  }
+
+  /**
+   * Returns the R value of KeyFrame's color.
+   **/
+  public int getR() {
+    return this.color.getRed();
+  }
+
+  /**
+   * Returns the G value of KeyFrame's color.
+   **/
+  public int getG() {
+    return this.color.getGreen();
+  }
+
+  /**
+   * Returns the B value of KeyFrame's color.
+   **/
+  public int getB() {
+    return this.color.getBlue();
   }
 }

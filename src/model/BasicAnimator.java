@@ -1,19 +1,20 @@
-import java.awt.*;
+package model;
+
+import util.MathUtils;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
-import Utilities.MathUtils;
 
 /**
  * Represents an animator that only uses ellipses and rectangles.
  */
 public class BasicAnimator implements Animator {
   // The named shapes that have been created
-  private Map<String, ShapeType> shapes;
+  public Map<String, ShapeType> shapes;
   // Maps the names of the shapes to their states at each specified KeyFrame
-  private Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
+  public Map<String, NavigableMap<Integer, KeyFrame>> shapeTimelines;
 
   /**
    * Constructs a BasicAnimator.
@@ -145,7 +146,6 @@ public class BasicAnimator implements Animator {
     }
     return output.toString();
   }
-
   // A more complex animator could implement convenience methods such as "doNothing" that finds
   // the last KeyFrame and adds a KeyFrame with the same state at a tick which is necessarily
   // larger than the last KeyFrame's tick, essentially making the shape not change until the
