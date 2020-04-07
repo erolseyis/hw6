@@ -28,15 +28,13 @@ public class ReadOnlyModel implements Animator {
   }
 
   @Override
-  public void addKeyFrame(String name, int tick, KeyFrame keyFrame)
-      throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void addKeyFrame(String name, int tick, KeyFrame keyFrame) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 
   @Override
-  public void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after)
-      throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 
   @Override
@@ -55,13 +53,13 @@ public class ReadOnlyModel implements Animator {
   }
 
   @Override
-  public void removeShape(String name) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void removeShape(String name) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 
   @Override
-  public void removeMotion(String name, boolean last) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void removeMotion(String name, boolean last) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 
   @Override
@@ -70,7 +68,7 @@ public class ReadOnlyModel implements Animator {
   }
 
   @Override
-  public void setCanvasDims(CanvasDims dims) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void setCanvasDims(CanvasDims dims) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 }

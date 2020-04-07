@@ -28,7 +28,7 @@ public interface Animator {
    * @throws IllegalArgumentException If a shape with the given name does not exist in the animator
    *                                  or if the given name is null, or if the tick is negative.
    */
-  void addKeyFrame(String name, int tick, KeyFrame keyFrame) throws OperationNotSupportedException;
+  void addKeyFrame(String name, int tick, KeyFrame keyFrame);
 
   /**
    * Adds a motion of a shape to the animator.
@@ -42,8 +42,7 @@ public interface Animator {
    *                                  times are invalid, or if the motion is illegal with respect to
    *                                  the existent shape timeline.
    */
-  void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after)
-      throws OperationNotSupportedException;
+  void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after);
 
   /**
    * Returns the type of the shape with the given name.
@@ -73,7 +72,7 @@ public interface Animator {
    * @param name Name of the shape to remove.
    * @throws IllegalArgumentException If null name or if the shape isn't in the animator.
    */
-  void removeShape(String name) throws OperationNotSupportedException;
+  void removeShape(String name);
 
   /**
    * Removes the first or last motion of a shape, depending on which is specified. Note that it only
@@ -85,7 +84,7 @@ public interface Animator {
    * @throws IllegalArgumentException If null name, the shape isn't in the animator, or there are no
    *                                  motions to remove.
    */
-  void removeMotion(String name, boolean last) throws OperationNotSupportedException;
+  void removeMotion(String name, boolean last);
 
   /**
    * Gets the dimensions of the canvas or bounding box for the animation.
@@ -100,7 +99,7 @@ public interface Animator {
    *
    * @param dims The dimensions of the canvas.
    */
-  void setCanvasDims(CanvasDims dims) throws OperationNotSupportedException;
+  void setCanvasDims(CanvasDims dims);
 
 
 }
