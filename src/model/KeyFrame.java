@@ -15,7 +15,7 @@ public class KeyFrame {
   private final Color color;
   private final int w;
   private final int h;
-  private final Position position;
+  private final Position2D position;
 
   /**
    * Constructs a KeyFrame.
@@ -26,7 +26,7 @@ public class KeyFrame {
    * @param position Where the shape should appear on the scene.
    * @throws IllegalArgumentException If given null arguments or an invalid tick or dimensions.
    */
-  public KeyFrame(Color color, int w, int h, Position position) {
+  public KeyFrame(Color color, int w, int h, Position2D position) {
     if (color == null) {
       throw new IllegalArgumentException("color cannot be null");
     }
@@ -94,7 +94,7 @@ public class KeyFrame {
   /**
    * Returns the position of the KeyFrame.
    **/
-  public Position getPosition() {
+  public Position2D getPosition() {
     return this.position;
   }
 }

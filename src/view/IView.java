@@ -1,20 +1,15 @@
 package view;
 
 
-import model.ShapeType;
+import javax.naming.OperationNotSupportedException;
+
+import model.Animator;
 
 public interface IView {
 
-  //void runAnimation();
+  void render(Animator animation, int ticksPerSecond);
 
-  double getSpeed();
+  void setOutput(Appendable w) throws OperationNotSupportedException;
 
-  void setSpeed(int newSpeed);
-
-  String viewType();
-
-  String getShapeTypeString(ShapeType type);
-
-  void render();
-
+  void modifyAnimationSpeed(int speed) throws OperationNotSupportedException;
 }

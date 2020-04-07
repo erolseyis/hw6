@@ -1,4 +1,4 @@
-import model.Position;
+import model.Position2D;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -6,10 +6,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests for the Position class.
  */
-public class PositionTest {
+public class Position2DTest {
 
-  Position pos1 = new Position(69, 420);
-  Position pos2 = new Position(-1, 0);
+  Position2D pos1 = new Position2D(69, 420);
+  Position2D pos2 = new Position2D(-1, 0);
 
   // toString()
 

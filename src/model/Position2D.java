@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a 2D Cartesian position.
  */
-public class Position {
+public class Position2D {
   private final int x;
   private final int y;
 
@@ -15,7 +15,7 @@ public class Position {
    * @param x The x coordinate.
    * @param y The y coordinate.
    */
-  public Position(int x, int y) {
+  public Position2D(int x, int y) {
     this.x = x;
     this.y = y;
   }
@@ -40,7 +40,7 @@ public class Position {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Position position = (Position) o;
+    Position2D position = (Position2D) o;
     return x == position.x &&
             y == position.y;
   }

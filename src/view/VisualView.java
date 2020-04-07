@@ -1,90 +1,53 @@
-//package view;
-//
-//
-//import java.awt.BorderLayout;
-//import java.awt.Dimension;
-//import javax.swing.JFrame;
-//import javax.swing.WindowConstants;
-//import model.BasicAnimator;
-//import model.ShapeType;
-//import util.PanelUtils;
-//
-//public class VisualView extends JFrame implements IView {
-//
-//  private BasicAnimator model;
-//  Panel panel;
-//  private int speed;
-//
-//
-//
-//  public VisualView(Panel pane;, int speed) {
-//    this.panel = panel;
-//    this.speed = speed;
-//  }
-//
-//
-//  @Override
-//  public double getSpeed() {
-//    return this.speed;
-//  }
-//
-//  @Override
-//  public void setSpeed(int newSpeed) {
-//    this.speed = newSpeed;
-//  }
-//
-//  @Override
-//  public String viewType() {
-//    return "Visual View";
-//  }
-//
-//  @Override
-//  public String getShapeTypeString(ShapeType type) {
-//    return type.toString();
-//  }
-//
-//  @Override
-//  public void render() {
-//    this.setTitle("BasicAnimator");
-//    this.setSize(PanelUtils.panelDimension);
-//    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//
-//    this.setLayout(new BorderLayout());
-//
-//    this.panel = new Panel(model);
-//    panel.setPreferredSize(PanelUtils.panelDimension);
-//
-//
-//  }
-//
-//
-////  public void draw(Graphics g) {
-////    Graphics2D g2d = (Graphics2D) g;
-////
-////    for (int i = 0; i < model.
-////        getShapesAtTick(speed).size();
-////        i++) {
-////      Map mp = model.getShapesAtTick(speed).get(i);
-////      //gets the keyframe present at the model
-////      KeyFrame kf = model.getKeyFrame();
-////
-////      // Get all keys
-////      Set<String> keys = mp.keySet();
-////      for (String k : keys) {
-////        if (model.getShape(k) == ShapeType.RECTANGLE) {
-////          g.setColor(kf.getColor());
-////          g.fillRect((kf.getPositionX()), kf.getPositionY(),
-////              kf.getWidth(),  kf.getHeight());
-////        }
-////
-////        else if (model.getShape(k) == ShapeType.ELLIPSE) {
-////          g.setColor(kf.getColor());
-////          g.fillRect((kf.getPositionX(), kf.getPositionY(),
-////              kf.getWidth(),  kf.getHeight());
-////        }
-////      }
-////    }
-////  }
-//}
-//
-//
+package view;
+
+import java.awt.*;
+
+import javax.naming.OperationNotSupportedException;
+import javax.swing.*;
+
+import model.Animator;
+
+/**
+ * Visual View class for drawing an animation in a window.
+ */
+public class VisualView extends JFrame implements IView {
+  private AnimationPanel animationPanel;
+
+  /**
+   * Constructs a VisualView.
+   */
+  public VisualView() {
+    super();
+    this.setTitle("fuck gui programming");
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.animationPanel = null;
+    this.setBackground(Color.WHITE);
+  }
+
+  @Override
+  public void render(Animator model, int ticksPerSecond) {
+    this.animationPanel = new AnimationPanel(model);
+    this.modifyAnimationSpeed(ticksPerSecond);
+    this.add(new JScrollPane(animationPanel));
+    this.setPreferredSize(this.animationPanel.getPreferredSize());
+    this.pack();
+    System.out.println(this.getSize());
+    System.out.println(this.animationPanel.getSize());
+    this.animationPanel.play();
+    setVisible(true);
+  }
+
+  @Override
+  public void modifyAnimationSpeed(int speed) {
+    if (this.animationPanel == null) {
+      throw new NullPointerException("Cannot modify animation speed while not rendering an " +
+              "animation.");
+    }
+    this.animationPanel.setTicksPerSecond(speed);
+  }
+
+  @Override
+  public void setOutput(Appendable w) throws OperationNotSupportedException {
+    throw new OperationNotSupportedException("Operation not supported");
+  }
+}

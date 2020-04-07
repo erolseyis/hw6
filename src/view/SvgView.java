@@ -1,48 +1,33 @@
 package view;
 
+import java.io.IOException;
+import javax.naming.OperationNotSupportedException;
 
-import model.ShapeType;
+import model.Animator;
 
+/**
+ * Produces an SVG representation of an animation.
+ */
 public class SvgView implements IView {
 
-  private double speed;
-
-  public SvgView(int speed) {
-    this.speed = speed;
-  }
-
-//  @Override
-//  public void runAnimation() {
-//
-//  }
+  private Appendable w;
 
   @Override
-  public double getSpeed() {
-    return this.speed;
-  }
-
-  public void setSpeed(int newSpeed) {
-    this.speed = newSpeed;
+  public void render(Animator animation, int ticksPerSecond) {
+    try {
+      w.append("//TODO");
+    } catch (IOException e) {
+      throw new RuntimeException("couldn't write to appendable object");
+    }
   }
 
   @Override
-  public String viewType() {
-    return "SVG View";
+  public void setOutput(Appendable w) {
+    this.w = w;
   }
 
   @Override
-  public String getShapeTypeString(ShapeType type) {
-    return type.toString();
-  }
-
-  @Override
-  public void render() {
-
-  }
-
-
-  public String toString() {
-    String svgTxt = "";
-    return svgTxt;
+  public void modifyAnimationSpeed(int speed) throws OperationNotSupportedException {
+    throw new OperationNotSupportedException();
   }
 }

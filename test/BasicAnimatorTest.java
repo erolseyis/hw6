@@ -6,7 +6,7 @@ import java.util.NavigableMap;
 
 import model.BasicAnimator;
 import model.KeyFrame;
-import model.Position;
+import model.Position2D;
 import model.ShapeType;
 
 import static org.junit.Assert.assertEquals;
@@ -88,21 +88,21 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addKeyFrame("R", 1, new KeyFrame(Color.RED,
-            50, 100, new Position(200, 200)));
+            50, 100, new Position2D(200, 200)));
 
     a.addKeyFrame("R", 10, new KeyFrame(Color.RED,
-            50, 100, new Position(10, 200)));
+            50, 100, new Position2D(10, 200)));
 
     a.addKeyFrame("R", 50, new KeyFrame(Color.RED,
-            50, 100, new Position(300, 300)));
+            50, 100, new Position2D(300, 300)));
 
     a.addShape(ShapeType.ELLIPSE, "C");
 
     a.addKeyFrame("C", 5, new KeyFrame(Color.RED,
-            400, 49, new Position(0, 0)));
+            400, 49, new Position2D(0, 0)));
 
     a.addKeyFrame("C", 15, new KeyFrame(Color.BLUE,
-            440, 89, new Position(840, 138)));
+            440, 89, new Position2D(840, 138)));
 
 
     Map<String, KeyFrame> shapesTick1 = a.getShapesAtTick(1);
@@ -155,7 +155,7 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addKeyFrame(null, 1, new KeyFrame(Color.RED,
-            50, 100, new Position(200, 200)));
+            50, 100, new Position2D(200, 200)));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -163,7 +163,7 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addKeyFrame("R2", 1, new KeyFrame(Color.RED,
-            50, 100, new Position(200, 200)));
+            50, 100, new Position2D(200, 200)));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -171,7 +171,7 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addKeyFrame("R", 0, new KeyFrame(Color.RED,
-            50, 100, new Position(200, 200)));
+            50, 100, new Position2D(200, 200)));
   }
 
   // addMotion()
@@ -181,19 +181,19 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addMotion("R", 11, new KeyFrame(Color.RED,
-                    50, 100, new Position(200, 200)),
+                    50, 100, new Position2D(200, 200)),
             20, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)));
+                    50, 100, new Position2D(10, 200)));
 
     a.addMotion("R", 20, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)),
+                    50, 100, new Position2D(10, 200)),
             50, new KeyFrame(Color.RED,
-                    50, 100, new Position(300, 300)));
+                    50, 100, new Position2D(300, 300)));
 
     a.addMotion("R", 1, new KeyFrame(Color.RED,
-                    25, 50, new Position(100, 100)),
+                    25, 50, new Position2D(100, 100)),
             11, new KeyFrame(Color.RED,
-                    50, 100, new Position(200, 200)));
+                    50, 100, new Position2D(200, 200)));
 
     NavigableMap<Integer, KeyFrame> kfs = a.getShapeKeyFrames("R");
     assertEquals(4, kfs.size());
@@ -230,13 +230,13 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addMotion("R", 11, new KeyFrame(Color.RED,
-                    50, 100, new Position(200, 200)),
+                    50, 100, new Position2D(200, 200)),
             20, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)));
+                    50, 100, new Position2D(10, 200)));
     a.addMotion("R", 20, new KeyFrame(Color.RED,
-                    50, 10, new Position(10, 200)),
+                    50, 10, new Position2D(10, 200)),
             50, new KeyFrame(Color.RED,
-                    50, 100, new Position(300, 300)));
+                    50, 100, new Position2D(300, 300)));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -244,13 +244,13 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addMotion("R", 11, new KeyFrame(Color.RED,
-                    50, 100, new Position(200, 200)),
+                    50, 100, new Position2D(200, 200)),
             20, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)));
+                    50, 100, new Position2D(10, 200)));
     a.addMotion("R", 21, new KeyFrame(Color.RED,
-                    50, 10, new Position(10, 200)),
+                    50, 10, new Position2D(10, 200)),
             50, new KeyFrame(Color.RED,
-                    50, 100, new Position(300, 300)));
+                    50, 100, new Position2D(300, 300)));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -258,13 +258,13 @@ public class BasicAnimatorTest {
     init();
     a.addShape(ShapeType.RECTANGLE, "R");
     a.addMotion("R", 11, new KeyFrame(Color.RED,
-                    50, 100, new Position(200, 200)),
+                    50, 100, new Position2D(200, 200)),
             20, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)));
+                    50, 100, new Position2D(10, 200)));
     a.addMotion("R", 1, new KeyFrame(Color.RED,
-                    50, 100, new Position(10, 200)),
+                    50, 100, new Position2D(10, 200)),
             12, new KeyFrame(Color.RED,
-                    50, 100, new Position(300, 300)));
+                    50, 100, new Position2D(300, 300)));
   }
 
   // toString()
@@ -302,41 +302,41 @@ public class BasicAnimatorTest {
     a.addShape(ShapeType.ELLIPSE, "C");
     // R's KeyFrame's
     a.addKeyFrame("R", 1, new KeyFrame(Color.RED,
-            50, 100, new Position(200, 200)));
+            50, 100, new Position2D(200, 200)));
 
     a.addKeyFrame("R", 10, new KeyFrame(Color.RED,
-            50, 100, new Position(10, 200)));
+            50, 100, new Position2D(10, 200)));
 
     a.addKeyFrame("R", 50, new KeyFrame(Color.RED,
-            50, 100, new Position(300, 300)));
+            50, 100, new Position2D(300, 300)));
 
     a.addKeyFrame("R", 51, new KeyFrame(Color.RED,
-            50, 100, new Position(300, 300)));
+            50, 100, new Position2D(300, 300)));
 
     a.addKeyFrame("R", 70, new KeyFrame(Color.RED,
-            25, 100, new Position(300, 300)));
+            25, 100, new Position2D(300, 300)));
 
     a.addKeyFrame("R", 100, new KeyFrame(Color.RED,
-            25, 100, new Position(200, 200)));
+            25, 100, new Position2D(200, 200)));
 
     // C's KeyFrame's
     a.addKeyFrame("C", 6, new KeyFrame(Color.BLUE,
-            120, 60, new Position(440, 70)));
+            120, 60, new Position2D(440, 70)));
 
     a.addKeyFrame("C", 20, new KeyFrame(Color.BLUE,
-            120, 60, new Position(440, 70)));
+            120, 60, new Position2D(440, 70)));
 
     a.addKeyFrame("C", 50, new KeyFrame(Color.BLUE,
-            120, 60, new Position(440, 250)));
+            120, 60, new Position2D(440, 250)));
 
     a.addKeyFrame("C", 70, new KeyFrame(Color.CYAN,
-            120, 60, new Position(440, 370))); // "green-blue"?
+            120, 60, new Position2D(440, 370))); // "green-blue"?
 
     a.addKeyFrame("C", 80, new KeyFrame(Color.GREEN,
-            120, 60, new Position(440, 370)));
+            120, 60, new Position2D(440, 370)));
 
     a.addKeyFrame("C", 100, new KeyFrame(Color.GREEN,
-            120, 60, new Position(440, 370)));
+            120, 60, new Position2D(440, 370)));
 
     String exp = "shape R rectangle\n" +
             "motion R\n" +

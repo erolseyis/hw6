@@ -78,8 +78,8 @@ public class BasicAnimator implements Animator {
     if (start == null || end == null) {
       throw new IllegalArgumentException("cannot add null keyframes");
     }
-    if (t2 <= t1) {
-      throw new IllegalArgumentException("motion must end at a larger time than its start");
+    if (t2 < t1) {
+      throw new IllegalArgumentException("motion cannot end at a smaller time than its start");
     }
 
     NavigableMap<Integer, KeyFrame> shapeKeyFrames = this.getShapeKeyFrames(name);
@@ -102,7 +102,9 @@ public class BasicAnimator implements Animator {
       }
     } else { // A motion can always be added to an empty timeline
       this.addKeyFrame(name, t1, start);
-      this.addKeyFrame(name, t2, end);
+      if (t1 != t2) {
+        this.addKeyFrame(name, t2, end);
+      }
     }
   }
 
@@ -173,7 +175,7 @@ public class BasicAnimator implements Animator {
         int newW = new MathUtils().interpolate(t1, lastW, t2, nextW, tick);
         int newX = new MathUtils().interpolate(t1, lastX, t2, nextX, tick);
         int newY = new MathUtils().interpolate(t1, lastY, t2, nextY, tick);
-        Position newPosition = new Position(newX, newY);
+        Position2D newPosition = new Position2D(newX, newY);
         shapeKeyFrames.put(entry.getKey(), new KeyFrame(newColor, newW, newH, newPosition));
       }
       // The shape has been given no more directions but should still appear where it was
@@ -300,15 +302,15 @@ public class BasicAnimator implements Animator {
     public AnimationBuilder<Animator> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
                                                 int r1, int g1, int b1, int t2, int x2, int y2,
                                                 int w2, int h2, int r2, int g2, int b2) {
-      animator.addMotion(name, t1, new KeyFrame(new Color(r1, b1, g1), w1, h1, new Position(x1, y1)),
-              t2, new KeyFrame(new Color(r2, b2, g2), w2, h2, new Position(x2, y2)));
+      animator.addMotion(name, t1, new KeyFrame(new Color(r1, g1, b1), w1, h1, new Position2D(x1, y1)),
+              t2, new KeyFrame(new Color(r2, g2, b2), w2, h2, new Position2D(x2, y2)));
       return this;
     }
 
     @Override
     public AnimationBuilder<Animator> addKeyframe(String name, int t, int x, int y, int w, int h,
                                                   int r, int g, int b) {
-      animator.addKeyFrame(name, t, new KeyFrame(new Color(r, g, b), w, h, new Position(x, y)));
+      animator.addKeyFrame(name, t, new KeyFrame(new Color(r, g, b), w, h, new Position2D(x, y)));
       return this;
     }
   }

@@ -95,4 +95,9 @@ public class CanvasDims {
   public void setHeight(int height) {
     this.height = height;
   }
+
+  @Override
+  public String toString() {
+    return "Canvas " + this.x + " " + this.y + " " + this.width + " " + this.height + "\n";
+  }
 }

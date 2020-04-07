@@ -1,5 +1,5 @@
 import model.KeyFrame;
-import model.Position;
+import model.Position2D;
 import org.junit.Test;
 
 import java.awt.Color;
@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class KeyFrameTest {
 
-  Position p1 = new Position(100, 100);
-  Position p2 = null;
-  Position p3 = new Position(-5, -120);
+  Position2D p1 = new Position2D(100, 100);
+  Position2D p2 = null;
+  Position2D p3 = new Position2D(-5, -120);
 
   @Test(expected = IllegalArgumentException.class)
   public void illegalColorTest() {
