@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -27,8 +28,8 @@ public class BasicAnimator implements Animator {
    * Constructs a BasicAnimator.
    */
   public BasicAnimator() {
-    this.shapes = new HashMap<>();
-    this.shapeTimelines = new HashMap<>();
+    this.shapes = new LinkedHashMap<>();
+    this.shapeTimelines = new LinkedHashMap<>();
   }
 
   @Override
@@ -139,7 +140,7 @@ public class BasicAnimator implements Animator {
     if (tick < 1) {
       throw new IllegalArgumentException("tick must be positive integer");
     }
-    Map<String, KeyFrame> shapeKeyFrames = new HashMap<>();
+    Map<String, KeyFrame> shapeKeyFrames = new LinkedHashMap<>();
     for (Map.Entry<String, NavigableMap<Integer, KeyFrame>> entry : this.shapeTimelines.entrySet()) {
       Map.Entry<Integer, KeyFrame> previousState = entry.getValue().floorEntry(tick);
       Map.Entry<Integer, KeyFrame> nextState = entry.getValue().ceilingEntry(tick);

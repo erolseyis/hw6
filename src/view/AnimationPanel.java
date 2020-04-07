@@ -74,7 +74,6 @@ public class AnimationPanel extends JPanel {
     for (Map.Entry<String, KeyFrame> shape:
             this.model.getShapesAtTick(this.tick).entrySet()) {
       g2d.setColor(shape.getValue().getColor());
-      System.out.println(shape.getKey());
       if (this.model.getShapeType(shape.getKey()).equals(ShapeType.RECTANGLE)) {
         g2d.fillRect(shape.getValue().getPosition().getX() - xOffset,
                 shape.getValue().getPosition().getY() - yOffset,
