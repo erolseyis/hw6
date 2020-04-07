@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Map;
+import javax.naming.OperationNotSupportedException;
 
 /**
  * Represents a general animator tool that models an animation by storing shapes and their key
@@ -16,7 +17,7 @@ public interface Animator {
    * @throws IllegalArgumentException If the type or name of the shape is null, or if a shape with
    *                                  the same name already exists in the animation.
    */
-  void addShape(ShapeType type, String name);
+  void addShape(ShapeType type, String name) throws OperationNotSupportedException;
 
   /**
    * Adds a KeyFrame to the animator for a specific element of the animation.
@@ -27,7 +28,7 @@ public interface Animator {
    * @throws IllegalArgumentException If a shape with the given name does not exist in the animator
    *                                  or if the given name is null, or if the tick is negative.
    */
-  void addKeyFrame(String name, int tick, KeyFrame keyFrame);
+  void addKeyFrame(String name, int tick, KeyFrame keyFrame) throws OperationNotSupportedException;
 
   /**
    * Adds a motion of a shape to the animator.
@@ -41,7 +42,8 @@ public interface Animator {
    *                                  times are invalid, or if the motion is illegal with respect to
    *                                  the existent shape timeline.
    */
-  void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after);
+  void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after)
+      throws OperationNotSupportedException;
 
   /**
    * Returns the type of the shape with the given name.
@@ -71,7 +73,7 @@ public interface Animator {
    * @param name Name of the shape to remove.
    * @throws IllegalArgumentException If null name or if the shape isn't in the animator.
    */
-  void removeShape(String name);
+  void removeShape(String name) throws OperationNotSupportedException;
 
   /**
    * Removes the first or last motion of a shape, depending on which is specified. Note that it only
@@ -83,7 +85,7 @@ public interface Animator {
    * @throws IllegalArgumentException If null name, the shape isn't in the animator, or there are no
    *                                  motions to remove.
    */
-  void removeMotion(String name, boolean last);
+  void removeMotion(String name, boolean last) throws OperationNotSupportedException;
 
   /**
    * Gets the dimensions of the canvas or bounding box for the animation.
@@ -98,7 +100,7 @@ public interface Animator {
    *
    * @param dims The dimensions of the canvas.
    */
-  void setCanvasDims(CanvasDims dims);
+  void setCanvasDims(CanvasDims dims) throws OperationNotSupportedException;
 
 
 }
