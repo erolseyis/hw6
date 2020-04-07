@@ -38,11 +38,15 @@ public class Position2D {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Position2D position = (Position2D) o;
-    return x == position.x &&
-            y == position.y;
+    return x == position.x
+        && y == position.y;
   }
 
   @Override

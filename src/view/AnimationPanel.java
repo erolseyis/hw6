@@ -1,22 +1,25 @@
 package view;
+
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.*;
 
+import javax.swing.JPanel;
+import javax.swing.Timer;
 import model.Animator;
 import model.KeyFrame;
 import model.ShapeType;
 
-import java.awt.*;
 import java.util.Map;
 
 
 /**
  * This panel represents the region where the
  * lines of the turtle must be drawn.
- * <p>
- * If one has to create a container that makes
+ *
+ * <p> If one has to create a container that makes
  * custom drawing, the conventional way is to
  * create a class that extends JPanel or JLabel
  */

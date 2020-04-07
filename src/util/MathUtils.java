@@ -12,7 +12,7 @@ public class MathUtils {
    * @param y1 First point y coordinate.
    * @param x2 Second point x coordinate.
    * @param y2 Second point y coordinate.
-   * @param x Point to create an interpolated y value for.
+   * @param x  Point to create an interpolated y value for.
    * @return The interpolated y value at the given x between the two points.
    * @throws IllegalArgumentException When slope between the points is undefined.
    */
@@ -22,7 +22,7 @@ public class MathUtils {
     if (dx == 0) {
       throw new IllegalArgumentException("undefined slope");
     }
-    double slope = dy/dx;
-    return (int) (y1 + slope * (double)(x - x1));
+    double slope = dy / dx;
+    return (int) (y1 + slope * (double) (x - x1));
   }
 }

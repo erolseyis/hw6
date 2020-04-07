@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 
 import util.MathUtils;
 
-
+/**
+ * Tests for the MathUtils class.
+ */
 public class UtilitiesTest {
   MathUtils utils = new MathUtils();
 
