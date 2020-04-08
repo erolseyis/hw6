@@ -20,7 +20,7 @@ public class VisualView extends JFrame implements IView {
    */
   public VisualView() {
     super();
-    this.setTitle("fuck gui programming");
+    this.setTitle("Animation");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.animationPanel = null;
     this.setBackground(Color.WHITE);
