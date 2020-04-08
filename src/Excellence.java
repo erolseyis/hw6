@@ -12,7 +12,7 @@ import view.IView;
 import view.ViewCreator;
 
 public class Excellence {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws OperationNotSupportedException {
     String in = null;
     String viewName = null;
     String out = null;
@@ -56,7 +56,7 @@ public class Excellence {
 
     try {
       view.setOutput(w);
-    } catch (OperationNotSupportedException e) {
+    } catch (UnsupportedOperationException e) {
 
     }
 
