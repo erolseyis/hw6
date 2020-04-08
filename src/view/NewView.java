@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 
+import javax.naming.OperationNotSupportedException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -19,11 +20,12 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import model.Animator;
 import model.ReadOnlyModel;
 import util.PanelUtils;
 
 
-public class NewView extends JFrame implements ItemListener, ActionListener, ChangeListener {
+public class NewView extends JFrame implements IView, ItemListener, ActionListener, ChangeListener {
 
   private ReadOnlyModel model;
   private double speed;
@@ -43,7 +45,7 @@ public class NewView extends JFrame implements ItemListener, ActionListener, Cha
 
 
   public NewView() {
-    this.setTitle("Animation!");
+    this.setTitle("Animation");
     this.setSize(1200, 1000);
     setLocation(500, 10);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -147,4 +149,22 @@ public class NewView extends JFrame implements ItemListener, ActionListener, Cha
   }
 
 
+  @Override
+  public void render(Animator animation, int ticksPerSecond) {
+
+  }
+
+  @Override
+  public void setOutput(Appendable w) throws OperationNotSupportedException {
+
+  }
+
+  @Override
+  public void modifyAnimationSpeed(int speed) throws OperationNotSupportedException {
+    if (this.animationPanel == null) {
+      throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "
+          + "animation.");
+    }
+    this.animationPanel.setTicksPerSecond(speed);
+  }
 }

@@ -16,13 +16,14 @@ public class Controller implements Features, ActionListener {
   public Controller(BasicAnimator model, VisualView view) {
     this.model = model;
     this.view = view;
-}
+  }
 
 
-  public void runViewAnimation(BasicAnimator model , int speed, String fn, Appendable a) {
+  public void runViewAnimation(BasicAnimator model, int speed, String fn, Appendable a) {
     IView v = new VisualView();
     Timer t = new Timer(speed, new ActionListener() {
       int tick = 0;
+
       @Override
       public void actionPerformed(ActionEvent e) {
         v.render(model, speed);
