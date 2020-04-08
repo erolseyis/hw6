@@ -1,14 +1,13 @@
 package view;
 
 
+import controller.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 
 import javax.swing.JButton;
@@ -17,21 +16,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 
 import model.ReadOnlyModel;
 import util.PanelUtils;
 
 
-public class EditorView extends VisualView implements ItemListener, ActionListener, ChangeListener {
+public class EditorView extends VisualView implements ActionListener {
 
   private ReadOnlyModel model;
   private double speed;
   private AnimationPanel animationPanel;
   private boolean looped;
   private Timer timer;
+
+  private Controller controller;
 
 
   //Buttons
@@ -40,7 +39,7 @@ public class EditorView extends VisualView implements ItemListener, ActionListen
   private JButton restartButton;
   private JButton speedUpButton;
   private JButton speedDownButton;
-  private final JCheckBox loopButton = new JCheckBox("loop");
+  private final JCheckBox loopButton = new JCheckBox("Loop");
 
 
 
@@ -70,6 +69,7 @@ public class EditorView extends VisualView implements ItemListener, ActionListen
     startButton.setFont(PanelUtils.BUTTON_FONT);
     startButton.setActionCommand("Start");
     startButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    startButton.addActionListener(controller);
     buttonSet.add(startButton);
 
     //Scroll Bar
@@ -85,6 +85,7 @@ public class EditorView extends VisualView implements ItemListener, ActionListen
     pauseResumeButton.setFont(PanelUtils.BUTTON_FONT);
     pauseResumeButton.setActionCommand("Pause/Resume");
     pauseResumeButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    pauseResumeButton.addActionListener(controller);
     buttonSet.add(pauseResumeButton);
 
     restartButton = new JButton("Restart");
@@ -92,48 +93,36 @@ public class EditorView extends VisualView implements ItemListener, ActionListen
     restartButton.setFont(PanelUtils.BUTTON_FONT);
     restartButton.setActionCommand("Restart");
     restartButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    restartButton.addActionListener(controller);
     buttonSet.add(restartButton);
 
 
-    speedUpButton = new JButton("Increase the current speed of:" + speed);
+    speedUpButton = new JButton("Increase the speed");
     speedUpButton.setMargin(new Insets(0,0,0,0));
     speedUpButton.setFont(new Font("Arial", Font.PLAIN, 20));
     speedUpButton.setActionCommand("Increase the Speed");
     speedUpButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    speedUpButton.addActionListener(controller);
     buttonSet.add(speedUpButton);
 
-    speedDownButton = new JButton("Decrease the current speed of:" + speed);
+    speedDownButton = new JButton("Decrease the speed");
     speedDownButton.setMargin(PanelUtils.BUTTON_INTSET);
     speedDownButton.setFont(PanelUtils.BUTTON_FONT);
     speedDownButton.setActionCommand("Decrease the Speed");
     speedDownButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    speedDownButton.addActionListener(controller);
     buttonSet.add(speedDownButton);
 
 
   }
 
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
 
-  }
-
-  @Override
-  public void itemStateChanged(ItemEvent e) {
-
-  }
-
-  @Override
-  public void stateChanged(ChangeEvent e) {
-
-  }
 
 
   public void render(){
 
   }
-
-
 
 
 
@@ -177,4 +166,8 @@ public class EditorView extends VisualView implements ItemListener, ActionListen
   }
 
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
+  }
 }
