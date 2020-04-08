@@ -1,10 +1,12 @@
 package view;
 
-import java.awt.*;
 
+import java.awt.Color;
 import javax.naming.OperationNotSupportedException;
-import javax.swing.*;
 
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import model.Animator;
 
 /**
@@ -18,7 +20,7 @@ public class VisualView extends JFrame implements IView {
    */
   public VisualView() {
     super();
-    this.setTitle("fuck gui programming");
+    this.setTitle("Animation");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.animationPanel = null;
     this.setBackground(Color.WHITE);
@@ -37,11 +39,14 @@ public class VisualView extends JFrame implements IView {
     setVisible(true);
   }
 
-  @Override
+  /**
+   * Modifies the speed of the animation.
+   * @param speed  new Speed to be set.
+   */
   public void modifyAnimationSpeed(int speed) {
     if (this.animationPanel == null) {
-      throw new NullPointerException("Cannot modify animation speed while not rendering an " +
-              "animation.");
+      throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "
+          + "animation.");
     }
     this.animationPanel.setTicksPerSecond(speed);
   }

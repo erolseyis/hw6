@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Map;
+import javax.naming.OperationNotSupportedException;
 
 /**
  * Represents a general animator tool that models an animation by storing shapes and their key
@@ -16,7 +17,7 @@ public interface Animator {
    * @throws IllegalArgumentException If the type or name of the shape is null, or if a shape with
    *                                  the same name already exists in the animation.
    */
-  void addShape(ShapeType type, String name);
+  void addShape(ShapeType type, String name) throws OperationNotSupportedException;
 
   /**
    * Adds a KeyFrame to the animator for a specific element of the animation.

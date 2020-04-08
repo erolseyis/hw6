@@ -48,21 +48,25 @@ public class KeyFrame {
 
   @Override
   public String toString() {
-    return this.position.toString() +
-        "\tHeight: " + this.h +
-        "\tWidth: " + this.w +
-        "\tColor: " + this.color.toString();
+    return this.position.toString()
+        + "\tHeight: " + this.h
+        + "\tWidth: " + this.w
+        + "\tColor: " + this.color.toString();
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if ((o == null) || (getClass() != o.getClass())) {
+      return false;
+    }
     KeyFrame keyFrame = (KeyFrame) o;
-    return w == keyFrame.w &&
-            h == keyFrame.h &&
-            color.equals(keyFrame.color) &&
-            position.equals(keyFrame.position);
+    return w == keyFrame.w
+        && h == keyFrame.h
+        && color.equals(keyFrame.color)
+        && position.equals(keyFrame.position);
   }
 
   @Override

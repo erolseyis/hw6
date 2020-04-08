@@ -1,5 +1,7 @@
 package util;
 
+import javax.naming.OperationNotSupportedException;
+
 public interface AnimationBuilder<Doc> {
   /**
    * Constructs a final document.
@@ -28,7 +30,8 @@ public interface AnimationBuilder<Doc> {
    *             include "ellipse" and "rectangle" as a minimum.
    * @return This {@link AnimationBuilder}
    */
-  AnimationBuilder<Doc> declareShape(String name, String type);
+  AnimationBuilder<Doc> declareShape(String name, String type)
+      throws OperationNotSupportedException;
 
   /**
    * Adds a transformation to the growing document.
