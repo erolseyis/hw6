@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import javax.naming.OperationNotSupportedException;
 import util.AnimationBuilder;
 import util.MathUtils;
 
@@ -289,7 +290,8 @@ public class BasicAnimator implements Animator {
     }
 
     @Override
-    public AnimationBuilder<Animator> declareShape(String name, String type) {
+    public AnimationBuilder<Animator> declareShape(String name, String type)
+        throws OperationNotSupportedException {
       if (type.equals("rectangle")) {
         animator.addShape(ShapeType.RECTANGLE, name);
       } else if (type.equals("ellipse")) {

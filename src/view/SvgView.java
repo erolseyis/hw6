@@ -21,6 +21,7 @@ public class SvgView implements IView {
     }
   }
 
+
   @Override
   public void setOutput(Appendable w) {
     this.w = w;
