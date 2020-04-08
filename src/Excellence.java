@@ -11,7 +11,11 @@ import util.AnimationReader;
 import view.IView;
 import view.ViewCreator;
 
+/**
+ * Main class which the view is run from.
+ */
 public class Excellence {
+
   public static void main(String[] args) throws OperationNotSupportedException {
     String in = null;
     String viewName = null;

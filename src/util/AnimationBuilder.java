@@ -2,9 +2,15 @@ package util;
 
 import javax.naming.OperationNotSupportedException;
 
+/**
+ * This interface contains all the methods that the AnimationFileReader class calls as it reads a
+ * file containing the animation and builds a model It is parameterized over the actual model type.
+ */
 public interface AnimationBuilder<Doc> {
+
   /**
    * Constructs a final document.
+   *
    * @return the newly constructed document
    */
   Doc build();
@@ -12,9 +18,10 @@ public interface AnimationBuilder<Doc> {
 
   /**
    * Specify the bounding box to be used for the animation.
-   * @param x The leftmost x value
-   * @param y The topmost y value
-   * @param width The width of the bounding box
+   *
+   * @param x      The leftmost x value
+   * @param y      The topmost y value
+   * @param width  The width of the bounding box
    * @param height The height of the bounding box
    * @return This {@link AnimationBuilder}
    */
@@ -23,11 +30,10 @@ public interface AnimationBuilder<Doc> {
   /**
    * Adds a new shape to the growing document.
    *
-   * @param name The unique name of the shape to be added.  
-   *             No shape with this name should already exist.
-   * @param type The type of shape (e.g. "ellipse", "rectangle") to be added.  
-   *             The set of supported shapes is unspecified, but should 
-   *             include "ellipse" and "rectangle" as a minimum.
+   * @param name The unique name of the shape to be added. No shape with this name should already
+   *             exist.
+   * @param type The type of shape (e.g. "ellipse", "rectangle") to be added. The set of supported
+   *             shapes is unspecified, but should include "ellipse" and "rectangle" as a minimum.
    * @return This {@link AnimationBuilder}
    */
   AnimationBuilder<Doc> declareShape(String name, String type)
@@ -35,7 +41,7 @@ public interface AnimationBuilder<Doc> {
 
   /**
    * Adds a transformation to the growing document.
-   * 
+   *
    * @param name The name of the shape (added with {@link AnimationBuilder#declareShape})
    * @param t1   The start time of this transformation
    * @param x1   The initial x-position of the shape
@@ -61,6 +67,7 @@ public interface AnimationBuilder<Doc> {
 
   /**
    * Adds an individual keyframe to the growing document.
+   *
    * @param name The name of the shape (added with {@link AnimationBuilder#declareShape})
    * @param t    The time for this keyframe
    * @param x    The x-position of the shape

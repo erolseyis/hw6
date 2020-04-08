@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;
@@ -116,8 +116,7 @@ public class SvgView implements IView {
             .append(tickToMs(e.getKey(), ticksPerSecond)).append("ms\" ")
             .append("dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" ")
             .append("to=\"visible\" fill=\"freeze\" />\n");
-      }
-      else {
+      } else {
         int previousTick = keyFrames.lowerKey(e.getKey());
         KeyFrame previousKeyFrame = keyFrames.get(previousTick);
         s.append(generateAnimationTags(xStr, yStr, wStr, hStr, previousTick, previousKeyFrame,
@@ -164,16 +163,17 @@ public class SvgView implements IView {
 
   private String generateAnimationTag(String attributeName, int startTick, String startVal,
       int endTick, String endVal, int ticksPerSecond) {
-    String base = "    <animate attributeType=\"xml\" " +
-        getBeginAndDuration(startTick, endTick, ticksPerSecond) +
+    String base = "    <animate attributeType=\"xml\" "
+        +
+        getBeginAndDuration(startTick, endTick, ticksPerSecond)
+        +
         "attributeName=\"";
     String fillFreeze = "fill=\"freeze\" ";
-    return base +
-        attributeName + "\" " +
-        "from=\"" + startVal + "\" " +
-        "to=\"" + endVal + "\" " +
-        fillFreeze +
-        "/>\n";
+    return base + attributeName + "\" "
+        + "from=\"" + startVal + "\" "
+        + "to=\"" + endVal + "\" "
+        + fillFreeze
+        + "/>\n";
   }
 
   /**
@@ -189,8 +189,8 @@ public class SvgView implements IView {
     int startMs = tickToMs(startTick, ticksPerSecond);
     int endMs = tickToMs(endTick, ticksPerSecond);
     int durationMs = endMs - startMs;
-    return "begin=\"" + startMs + "ms\"" +
-        " dur=\"" + durationMs + "ms\" ";
+    return "begin=\"" + startMs + "ms\""
+        + " dur=\"" + durationMs + "ms\" ";
   }
 
   private int tickToMs(int tick, int ticksPerSecond) {

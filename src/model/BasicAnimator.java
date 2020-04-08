@@ -140,7 +140,8 @@ public class BasicAnimator implements Animator {
       throw new IllegalArgumentException("tick must be positive integer");
     }
     Map<String, KeyFrame> shapeKeyFrames = new LinkedHashMap<>();
-    for (Map.Entry<String, NavigableMap<Integer, KeyFrame>> entry : this.shapeTimelines.entrySet()) {
+    for (Map.Entry<String, NavigableMap<Integer, KeyFrame>> entry : this.shapeTimelines
+        .entrySet()) {
       Map.Entry<Integer, KeyFrame> previousState = entry.getValue().floorEntry(tick);
       Map.Entry<Integer, KeyFrame> nextState = entry.getValue().ceilingEntry(tick);
       // If either is null, the tick is either before the shape appears or after its last given kf
@@ -255,7 +256,8 @@ public class BasicAnimator implements Animator {
           output.append("motion " + name + "\n");
           output.append("start:\t");
           output.append("Tick: " + this.shapeTimelines.get(name).lowerKey(entry.getKey()));
-          output.append(this.shapeTimelines.get(name).lowerEntry(entry.getKey()).getValue().toString());
+          output.append(
+              this.shapeTimelines.get(name).lowerEntry(entry.getKey()).getValue().toString());
           output.append("\n");
           output.append("end:\t");
           output.append("Tick: " + entry.getKey());
@@ -307,8 +309,9 @@ public class BasicAnimator implements Animator {
     public AnimationBuilder<Animator> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
         int r1, int g1, int b1, int t2, int x2, int y2,
         int w2, int h2, int r2, int g2, int b2) {
-      animator.addMotion(name, t1, new KeyFrame(new Color(r1, g1, b1), w1, h1, new Position2D(x1, y1)),
-          t2, new KeyFrame(new Color(r2, g2, b2), w2, h2, new Position2D(x2, y2)));
+      animator
+          .addMotion(name, t1, new KeyFrame(new Color(r1, g1, b1), w1, h1, new Position2D(x1, y1)),
+              t2, new KeyFrame(new Color(r2, g2, b2), w2, h2, new Position2D(x2, y2)));
       return this;
     }
 

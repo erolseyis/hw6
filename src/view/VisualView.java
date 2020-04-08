@@ -1,9 +1,10 @@
 package view;
 
-import java.awt.*;
 
-import javax.swing.*;
 
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import model.Animator;
 
 /**
