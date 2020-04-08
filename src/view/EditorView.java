@@ -3,16 +3,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 
-import javax.naming.OperationNotSupportedException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
@@ -20,12 +20,12 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import model.Animator;
+
 import model.ReadOnlyModel;
 import util.PanelUtils;
 
 
-public class NewView extends JFrame implements IView, ItemListener, ActionListener, ChangeListener {
+public class EditorView extends VisualView implements ItemListener, ActionListener, ChangeListener {
 
   private ReadOnlyModel model;
   private double speed;
@@ -44,7 +44,7 @@ public class NewView extends JFrame implements IView, ItemListener, ActionListen
 
 
 
-  public NewView() {
+  public EditorView() {
     this.setTitle("Animation");
     this.setSize(1200, 1000);
     setLocation(500, 10);
@@ -83,12 +83,31 @@ public class NewView extends JFrame implements IView, ItemListener, ActionListen
     pauseResumeButton = new JButton("Pause/Resume");
     pauseResumeButton.setMargin(PanelUtils.BUTTON_INTSET);
     pauseResumeButton.setFont(PanelUtils.BUTTON_FONT);
-    pauseResumeButton.setActionCommand("Pause or Resume");
+    pauseResumeButton.setActionCommand("Pause/Resume");
     pauseResumeButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
     buttonSet.add(pauseResumeButton);
 
+    restartButton = new JButton("Restart");
+    restartButton.setMargin(PanelUtils.BUTTON_INTSET);
+    restartButton.setFont(PanelUtils.BUTTON_FONT);
+    restartButton.setActionCommand("Restart");
+    restartButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    buttonSet.add(restartButton);
 
 
+    speedUpButton = new JButton("Increase the current speed of:" + speed);
+    speedUpButton.setMargin(new Insets(0,0,0,0));
+    speedUpButton.setFont(new Font("Arial", Font.PLAIN, 20));
+    speedUpButton.setActionCommand("Increase the Speed");
+    speedUpButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    buttonSet.add(speedUpButton);
+
+    speedDownButton = new JButton("Decrease the current speed of:" + speed);
+    speedDownButton.setMargin(PanelUtils.BUTTON_INTSET);
+    speedDownButton.setFont(PanelUtils.BUTTON_FONT);
+    speedDownButton.setActionCommand("Decrease the Speed");
+    speedDownButton.setPreferredSize(PanelUtils.BUTTON_DIMENSION);
+    buttonSet.add(speedDownButton);
 
 
   }
@@ -108,6 +127,15 @@ public class NewView extends JFrame implements IView, ItemListener, ActionListen
   public void stateChanged(ChangeEvent e) {
 
   }
+
+
+  public void render(){
+
+  }
+
+
+
+
 
   /**
    * Get the speed of the animation.
@@ -149,22 +177,4 @@ public class NewView extends JFrame implements IView, ItemListener, ActionListen
   }
 
 
-  @Override
-  public void render(Animator animation, int ticksPerSecond) {
-
-  }
-
-  @Override
-  public void setOutput(Appendable w) throws OperationNotSupportedException {
-
-  }
-
-  @Override
-  public void modifyAnimationSpeed(int speed) throws OperationNotSupportedException {
-    if (this.animationPanel == null) {
-      throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "
-          + "animation.");
-    }
-    this.animationPanel.setTicksPerSecond(speed);
-  }
 }

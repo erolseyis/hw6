@@ -39,7 +39,10 @@ public class VisualView extends JFrame implements IView {
     setVisible(true);
   }
 
-  @Override
+  /**
+   * Modifies the speed of the animation.
+   * @param speed  new Speed to be set.
+   */
   public void modifyAnimationSpeed(int speed) {
     if (this.animationPanel == null) {
       throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "

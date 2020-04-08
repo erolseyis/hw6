@@ -15,6 +15,4 @@ public interface IView {
 
   void setOutput(Appendable w) throws OperationNotSupportedException;
 
-  void modifyAnimationSpeed(int speed) throws OperationNotSupportedException;
-
 }
