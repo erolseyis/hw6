@@ -7,9 +7,9 @@ import model.Animator;
 
 public interface IView {
 
-  void render(Animator animation, int ticksPerSecond);
+  void render(Animator model, int ticksPerSecond);
 
-  void setOutput(Appendable w) throws OperationNotSupportedException;
+  void setOutput(Appendable w);
 
-  void modifyAnimationSpeed(int speed) throws OperationNotSupportedException;
+  void modifyAnimationSpeed(int speed);
 }

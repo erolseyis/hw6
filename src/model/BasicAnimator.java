@@ -1,7 +1,6 @@
 package model;
 
-import java.awt.Color;
-import java.util.HashMap;
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NavigableMap;
@@ -242,6 +241,11 @@ public class BasicAnimator implements Animator {
   }
 
   @Override
+  public Map<String, ShapeType> getShapes() {
+    return this.shapes;
+  }
+
+  @Override
   public String toString() {
     StringBuilder output = new StringBuilder();
     for (String name : this.shapes.keySet()) {
@@ -249,7 +253,6 @@ public class BasicAnimator implements Animator {
       for (Map.Entry<Integer, KeyFrame> entry : this.shapeTimelines.get(name).entrySet()) {
         if (!entry.getKey().equals(this.shapeTimelines.get(name).firstKey())) {
           output.append("motion " + name + "\n");
-          // This "start" bit is cumbersome and unnecessary but matches the desired format.
           output.append("start:\t");
           output.append("Tick: " + this.shapeTimelines.get(name).lowerKey(entry.getKey()));
           output.append(this.shapeTimelines.get(name).lowerEntry(entry.getKey()).getValue().toString());

@@ -56,7 +56,7 @@ public class Excellence {
 
     try {
       view.setOutput(w);
-    } catch (OperationNotSupportedException e) {
+    } catch (UnsupportedOperationException e) {
 
     }
 

@@ -49,9 +49,9 @@ public class KeyFrame {
   @Override
   public String toString() {
     return this.position.toString() +
-        "\tHeight: " + this.h +
-        "\tWidth: " + this.w +
-        "\tColor: " + this.color.toString();
+            "\tHeight: " + this.h +
+            "\tWidth: " + this.w +
+            "\tColor: " + this.color.toString();
   }
 
   @Override

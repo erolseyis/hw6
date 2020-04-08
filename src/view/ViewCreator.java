@@ -19,7 +19,7 @@ public class ViewCreator {
       case "text":
         return new TextView();
       case "svg":
-        return null;
+        return new SvgView();
       case "visual":
         return new VisualView();
       default:

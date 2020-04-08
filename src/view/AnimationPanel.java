@@ -1,6 +1,7 @@
 package view;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+
+import java.awt.*;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -8,17 +9,12 @@ import model.Animator;
 import model.KeyFrame;
 import model.ShapeType;
 
-import java.awt.*;
-import java.util.Map;
-
 
 /**
- * This panel represents the region where the
- * lines of the turtle must be drawn.
+ * This panel represents the region where the lines of the turtle must be drawn.
  * <p>
- * If one has to create a container that makes
- * custom drawing, the conventional way is to
- * create a class that extends JPanel or JLabel
+ * If one has to create a container that makes custom drawing, the conventional way is to create a
+ * class that extends JPanel or JLabel
  */
 public class AnimationPanel extends JPanel {
   private Animator model;
@@ -50,6 +46,7 @@ public class AnimationPanel extends JPanel {
 
   /**
    * Sets the tick rate of the animation and refreshes the panel to make the change take hold.
+   *
    * @param ticksPerSecond The new tick rate.
    */
   public void setTicksPerSecond(int ticksPerSecond) {
@@ -71,7 +68,7 @@ public class AnimationPanel extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    for (Map.Entry<String, KeyFrame> shape:
+    for (Map.Entry<String, KeyFrame> shape :
             this.model.getShapesAtTick(this.tick).entrySet()) {
       g2d.setColor(shape.getValue().getColor());
       if (this.model.getShapeType(shape.getKey()).equals(ShapeType.RECTANGLE)) {

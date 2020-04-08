@@ -2,7 +2,6 @@ package view;
 
 import java.awt.*;
 
-import javax.naming.OperationNotSupportedException;
 import javax.swing.*;
 
 import model.Animator;
@@ -31,8 +30,6 @@ public class VisualView extends JFrame implements IView {
     this.add(new JScrollPane(animationPanel));
     this.setPreferredSize(this.animationPanel.getPreferredSize());
     this.pack();
-    System.out.println(this.getSize());
-    System.out.println(this.animationPanel.getSize());
     this.animationPanel.play();
     setVisible(true);
   }
@@ -47,7 +44,7 @@ public class VisualView extends JFrame implements IView {
   }
 
   @Override
-  public void setOutput(Appendable w) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("Operation not supported");
+  public void setOutput(Appendable w) {
+    throw new UnsupportedOperationException("Operation not supported");
   }
 }
