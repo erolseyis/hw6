@@ -18,10 +18,9 @@ import java.util.Map;
 /**
  * This panel represents the region where the
  * lines of the turtle must be drawn.
- *
  * <p> If one has to create a container that makes
  * custom drawing, the conventional way is to
- * create a class that extends JPanel or JLabel
+ * create a class that extends JPanel or JLabel.
  */
 public class AnimationPanel extends JPanel {
   private Animator model;
@@ -30,6 +29,8 @@ public class AnimationPanel extends JPanel {
   private int tick;
   private int ticksPerSecond;
   Timer timer;
+
+
 
   public AnimationPanel(Animator model) {
     super();

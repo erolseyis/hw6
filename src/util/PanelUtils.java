@@ -13,12 +13,12 @@ public class PanelUtils {
   //Window Dimensions
   public static int WINDOW_WIDTH = 1000;
   public static int WINDOW_HEIGHT = 1000;
-  public static Dimension panelDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+  public static Dimension PANEL_DIMENSION = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   //Button Dimensions
   public static int BUTTON_WIDTH = 50;
   public static int BUTTON_HEIGHT = 40;
-  public static Dimension buttonDimension = new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT);
+  public static Dimension BUTTON_DIMENSION = new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT);
 
   //Button Margins
   public static int MARGIN_SET = 0;
