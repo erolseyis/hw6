@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -22,13 +21,11 @@ public class Controller implements Features, ActionListener {
     this.model = model;
     this.view = view;
 
-
     int tickRateMS = ((Double) (1000 / tickRate))
         .intValue();
     timer = new Timer(tickRateMS, this);
     timer.setActionCommand("timer");
   }
-
 
 //  public void runViewAnimation(BasicAnimator model, int speed, String fn, Appendable a) {
 //    IView v = new VisualView();
@@ -75,7 +72,8 @@ public class Controller implements Features, ActionListener {
       case "Decrease the speed":
         view.setSpeed(view.getSpeed() - 1);
         break;
-      default: throw new IllegalArgumentException("Invalid Command");
+      default:
+        throw new IllegalArgumentException("Invalid Command");
     }
   }
 

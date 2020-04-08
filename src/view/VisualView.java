@@ -1,12 +1,9 @@
 package view;
 
+import java.awt.*;
 
-import java.awt.Color;
-import javax.naming.OperationNotSupportedException;
+import javax.swing.*;
 
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import model.Animator;
 
 /**
@@ -20,7 +17,7 @@ public class VisualView extends JFrame implements IView {
    */
   public VisualView() {
     super();
-    this.setTitle("Animation");
+    this.setTitle("fuck gui programming");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.animationPanel = null;
     this.setBackground(Color.WHITE);
@@ -33,26 +30,21 @@ public class VisualView extends JFrame implements IView {
     this.add(new JScrollPane(animationPanel));
     this.setPreferredSize(this.animationPanel.getPreferredSize());
     this.pack();
-    System.out.println(this.getSize());
-    System.out.println(this.animationPanel.getSize());
     this.animationPanel.play();
     setVisible(true);
   }
 
-  /**
-   * Modifies the speed of the animation.
-   * @param speed  new Speed to be set.
-   */
+  @Override
   public void modifyAnimationSpeed(int speed) {
     if (this.animationPanel == null) {
-      throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "
-          + "animation.");
+      throw new NullPointerException("Cannot modify animation speed while not rendering an " +
+          "animation.");
     }
     this.animationPanel.setTicksPerSecond(speed);
   }
 
   @Override
-  public void setOutput(Appendable w) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("Operation not supported");
+  public void setOutput(Appendable w) {
+    throw new UnsupportedOperationException("Operation not supported");
   }
 }

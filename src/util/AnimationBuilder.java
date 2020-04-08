@@ -31,7 +31,7 @@ public interface AnimationBuilder<Doc> {
    * @return This {@link AnimationBuilder}
    */
   AnimationBuilder<Doc> declareShape(String name, String type)
-      throws OperationNotSupportedException;
+      throws OperationNotSupportedException, IllegalArgumentException;
 
   /**
    * Adds a transformation to the growing document.

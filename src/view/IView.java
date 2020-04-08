@@ -5,14 +5,11 @@ import javax.naming.OperationNotSupportedException;
 
 import model.Animator;
 
-/**
- * Represents a general interface for a view.
- * Used to visualize the model.
- */
 public interface IView {
 
-  void render(Animator animation, int ticksPerSecond);
+  void render(Animator model, int ticksPerSecond);
 
-  void setOutput(Appendable w) throws OperationNotSupportedException;
+  void setOutput(Appendable w);
 
+  void modifyAnimationSpeed(int speed) throws OperationNotSupportedException;
 }

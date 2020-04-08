@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Map;
-import javax.naming.OperationNotSupportedException;
+import java.util.NavigableMap;
 
 /**
  * Represents a general animator tool that models an animation by storing shapes and their key
@@ -14,10 +14,11 @@ public interface Animator {
    *
    * @param type The shape to be added.
    * @param name The name of the shape to be added.
-   * @throws IllegalArgumentException If the type or name of the shape is null, or if a shape with
-   *                                  the same name already exists in the animation.
+   * @throws IllegalArgumentException      If the type or name of the shape is null, or if a shape
+   *                                       with the same name already exists in the animation.
+   * @throws UnsupportedOperationException If the implementation doesn't support adding a shape.
    */
-  void addShape(ShapeType type, String name) throws OperationNotSupportedException;
+  void addShape(ShapeType type, String name);
 
   /**
    * Adds a KeyFrame to the animator for a specific element of the animation.
@@ -25,8 +26,10 @@ public interface Animator {
    * @param name     The name of the element that a KeyFrame is being inserted for.
    * @param tick     The time value for the KeyFrame.
    * @param keyFrame A KeyFrame to add for the specified element.
-   * @throws IllegalArgumentException If a shape with the given name does not exist in the animator
-   *                                  or if the given name is null, or if the tick is negative.
+   * @throws IllegalArgumentException      If a shape with the given name does not exist in the
+   *                                       animator or if the given name is null, or if the tick is
+   *                                       negative.
+   * @throws UnsupportedOperationException If the implementation doesn't support adding a shape.
    */
   void addKeyFrame(String name, int tick, KeyFrame keyFrame);
 
@@ -38,9 +41,10 @@ public interface Animator {
    * @param before The state of the shape at the start of the motion.
    * @param t2     The time at which the motion should end.
    * @param after  The state of the shape after the motion.
-   * @throws IllegalArgumentException If any fields are null, or if the start time and/or ending
-   *                                  times are invalid, or if the motion is illegal with respect to
-   *                                  the existent shape timeline.
+   * @throws IllegalArgumentException      If any fields are null, or if the start time and/or
+   *                                       ending times are invalid, or if the motion is illegal
+   *                                       with respect to the existent shape timeline.
+   * @throws UnsupportedOperationException If the implementation doesn't support adding a shape.
    */
   void addMotion(String name, int t1, KeyFrame before, int t2, KeyFrame after);
 
@@ -55,7 +59,7 @@ public interface Animator {
   /**
    * Returns the KeyFrames of the specified shape.
    */
-  Map<Integer, KeyFrame> getShapeKeyFrames(String name);
+  NavigableMap<Integer, KeyFrame> getShapeKeyFrames(String name);
 
   /**
    * Gets the state of all the shapes in the animator at a given tick.
@@ -102,4 +106,10 @@ public interface Animator {
   void setCanvasDims(CanvasDims dims);
 
 
+  /**
+   * Gets the shapes declared in the model.
+   *
+   * @return A map of the shapes declared in the model.
+   */
+  Map<String, ShapeType> getShapes();
 }
