@@ -11,7 +11,7 @@ import model.KeyFrame;
 import model.ShapeType;
 
 /**
- * Produces an SVG representation of an animation. StringSustitutor would've been the move for this
+ * Produces an SVG representation of an animation. StringSubstitutor would've been the move for this
  * but I discovered it too far in to bother.
  */
 public class SvgView implements IView {
