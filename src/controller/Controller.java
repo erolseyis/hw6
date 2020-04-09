@@ -15,6 +15,8 @@ public class Controller implements ActionListener {
     this.model = model;
     this.view = view;
     view.setListener(this);
+    view.setOutput(out);
+    view.render(model, speed);
   }
 
 

@@ -55,11 +55,5 @@ public class Excellence {
     Animator animation = AnimationReader.parseFile(r, new BasicAnimator.BasicAnimationBuilder());
     IView view = ViewCreator.create(viewName);
     Controller c = new Controller(animation, view, speed, w);
-
-
-    view.render(animation, speed);
-
   }
-
-
 }
