@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
 
+import controller.Controller;
 import model.Animator;
 import model.BasicAnimator;
 import util.AnimationReader;
@@ -53,12 +54,8 @@ public class Excellence {
 
     Animator animation = AnimationReader.parseFile(r, new BasicAnimator.BasicAnimationBuilder());
     IView view = ViewCreator.create(viewName);
+    Controller c = new Controller(animation, view, speed, w);
 
-    try {
-      view.setOutput(w);
-    } catch (UnsupportedOperationException e) {
-
-    }
 
     view.render(animation, speed);
 

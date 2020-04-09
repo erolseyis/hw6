@@ -3,7 +3,8 @@ package view;
 import java.awt.*;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import model.Animator;
 import model.KeyFrame;
@@ -11,19 +12,24 @@ import model.ShapeType;
 
 
 /**
- * This panel represents the region where the lines of the turtle must be drawn.
- * <p>
- * If one has to create a container that makes custom drawing, the conventional way is to create a
- * class that extends JPanel or JLabel
+ * This panel is the region in which an animation plays.
  */
 public class AnimationPanel extends JPanel {
   private Animator model;
   int xOffset;
   int yOffset;
   private int tick;
-  private int ticksPerSecond;
   Timer timer;
+  private int ticksPerSecond;
+  private boolean looping;
+  private int endTick; // the last tick of the animation
 
+
+  /**
+   * Constructor for the animation panel class.
+   *
+   * @param model use this model to construct this AnimatorPanel
+   */
   public AnimationPanel(Animator model) {
     super();
     if (model == null) {
@@ -34,14 +40,43 @@ public class AnimationPanel extends JPanel {
     this.tick = 1;
     this.xOffset = this.model.getCanvasDims().getX();
     this.yOffset = this.model.getCanvasDims().getY();
+    this.ticksPerSecond = 1;
+    this.looping = false;
+    this.endTick = this.getEndTick();
   }
 
+  /**
+   * Starts the timer.
+   */
   public void play() {
     timer.start();
   }
 
+  /**
+   * Stops the timer.
+   */
   public void pause() {
     timer.stop();
+  }
+
+  /**
+   * Sets the tick of the animation.
+   *
+   * @param tick The tick to set the animation to.
+   */
+  public void setTick(int tick) {
+    this.tick = tick;
+  }
+
+  /**
+   * Toggles whether or not to loop the animation when it reaches the end.
+   */
+  public void toggleLooping() {
+    if (this.looping) {
+      this.looping = false;
+    } else {
+      this.looping = true;
+    }
   }
 
   /**
@@ -50,15 +85,37 @@ public class AnimationPanel extends JPanel {
    * @param ticksPerSecond The new tick rate.
    */
   public void setTicksPerSecond(int ticksPerSecond) {
-    this.ticksPerSecond = ticksPerSecond;
     // 1/ticks per second * 1000 = ms per tick
     timer = new Timer(1000 / ticksPerSecond, e -> {
       repaint();
-      System.out.println(tick);
-      tick++;
+      this.tick++;
+      if (this.tick == endTick && looping) {
+        this.tick = 0;
+      }
     });
   }
 
+  /**
+   * Make the animation go faster.
+   */
+  public void faster() {
+    this.setTicksPerSecond(this.ticksPerSecond + 5);
+  }
+
+  /**
+   * Make the animation go slower if possible.
+   */
+  public void slower() {
+    if (this.ticksPerSecond >= 6) {
+      this.setTicksPerSecond(this.ticksPerSecond - 5);
+    }
+  }
+
+  /**
+   * Changes the current model to the given one.
+   *
+   * @param model the new model.
+   */
   public void setModel(Animator model) {
     this.model = model;
   }
@@ -71,6 +128,7 @@ public class AnimationPanel extends JPanel {
     for (Map.Entry<String, KeyFrame> shape :
             this.model.getShapesAtTick(this.tick).entrySet()) {
       g2d.setColor(shape.getValue().getColor());
+      System.out.println(shape.getKey());
       if (this.model.getShapeType(shape.getKey()).equals(ShapeType.RECTANGLE)) {
         g2d.fillRect(shape.getValue().getPosition().getX() - xOffset,
                 shape.getValue().getPosition().getY() - yOffset,
@@ -89,5 +147,18 @@ public class AnimationPanel extends JPanel {
   public Dimension getPreferredSize() {
     return new Dimension(this.model.getCanvasDims().getWidth(),
             this.model.getCanvasDims().getHeight());
+  }
+
+  /**
+   * Gets the last tick for which a KeyFrame is specified anywhere in the animation.
+   *
+   * @return The last tick in the animation.
+   */
+  private int getEndTick() {
+    int endTick = 1;
+    for (Map.Entry<String, ShapeType> e : model.getShapes().entrySet()) {
+      endTick = Math.max(endTick, model.getShapeKeyFrames(e.getKey()).lastKey());
+    }
+    return endTick;
   }
 }

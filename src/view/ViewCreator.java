@@ -22,6 +22,8 @@ public class ViewCreator {
         return new SvgView();
       case "visual":
         return new VisualView();
+      case "edit":
+        return new EditorView();
       default:
         throw new IllegalArgumentException("unsupported view type");
     }

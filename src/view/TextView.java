@@ -109,9 +109,4 @@ public class TextView implements IView {
   public void setOutput(Appendable w) {
     this.w = w;
   }
-
-  @Override
-  public void modifyAnimationSpeed(int speed) {
-    throw new UnsupportedOperationException();
-  }
 }
