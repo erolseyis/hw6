@@ -18,7 +18,7 @@ public class VisualView extends JFrame implements IView {
    */
   public VisualView() {
     super();
-    this.setTitle("fuck gui programming");
+    this.setTitle("Animation");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.animationPanel = null;
     this.setBackground(Color.WHITE);
@@ -38,8 +38,8 @@ public class VisualView extends JFrame implements IView {
   @Override
   public void modifyAnimationSpeed(int speed) {
     if (this.animationPanel == null) {
-      throw new NullPointerException("Cannot modify animation speed while not rendering an " +
-          "animation.");
+      throw new IllegalArgumentException("Cannot modify animation speed while not rendering an "
+          + "animation.");
     }
     this.animationPanel.setTicksPerSecond(speed);
   }

@@ -43,39 +43,39 @@ public class Controller implements Features, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      case "Start":
-        this.paused = false;
-        if () {
-          view.render();
-          hasStart = true;
-        } else {
-          view.restart();
-        }
-        timer.start();
-        break;
-      case "Pause/Resume":
-        this.paused = true;
-        timer.stop();
-        //view.pauseOrResumerPanel();
-        break;
-      case "Restart":
-        t = 0;
-        timer.restart();
-        break;
-      case "Loop":
-        view.changeLoop();
-        break;
-      case "Increase the speed":
-        view.setSpeed(view.getSpeed() + 1);
-        break;
-      case "Decrease the speed":
-        view.setSpeed(view.getSpeed() - 1);
-        break;
-      default:
-        throw new IllegalArgumentException("Invalid Command");
-    }
+//    switch (e.getActionCommand()) {
+//      case "Start":
+//        this.paused = false;
+//        if () {
+//          view.render();
+//          hasStart = true;
+//        } else {
+//          view.restart();
+//        }
+//        timer.start();
+//        break;
+//      case "Pause/Resume":
+//        this.paused = true;
+//        timer.stop();
+//        //view.pauseOrResumerPanel();
+//        break;
+//      case "Restart":
+//        t = 0;
+//        timer.restart();
+//        break;
+//      case "Loop":
+//        view.changeLoop();
+//        break;
+//      case "Increase the speed":
+//        view.setSpeed(view.getSpeed() + 1);
+//        break;
+//      case "Decrease the speed":
+//        view.setSpeed(view.getSpeed() - 1);
+//        break;
+//      default:
+//        throw new IllegalArgumentException("Invalid Command");
+//    }
+//  }
+
   }
-
-
 }

@@ -1,30 +1,25 @@
 package model;
 
 import java.util.Map;
-import javax.naming.OperationNotSupportedException;
+import java.util.NavigableMap;
 
 /**
- * Class that represent Read Only Model.
- * It is used to retrieve information from the model.
- * Any methods that modify that modify the model throws UnsupportedOperationException.
+ * An immutable model of an animation to be read by the views, ensuring they never directly
+ * manipulate the model.
  */
 public class ReadOnlyModel implements Animator {
-  private Animator readOnly;
 
-  /**
-   * Constructor for ReadOnlyModel to be read by the views.
-   *
-   * @param readOnly the BasicAnimator model used to retrieve information.
-   */
-  public ReadOnlyModel(Animator readOnly) {
-    this.readOnly = readOnly;
+  private Animator model;
+
+  public ReadOnlyModel(Animator model) {
+
+    this.model = model;
   }
 
 
-
   @Override
-  public void addShape(ShapeType type, String name) throws OperationNotSupportedException {
-    throw new OperationNotSupportedException("You cannot modify the ReadOnly model");
+  public void addShape(ShapeType type, String name) {
+    throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
   }
 
   @Override
@@ -39,17 +34,17 @@ public class ReadOnlyModel implements Animator {
 
   @Override
   public ShapeType getShapeType(String name) {
-    return readOnly.getShapeType(name);
+    return model.getShapeType(name);
   }
 
   @Override
-  public Map<Integer, KeyFrame> getShapeKeyFrames(String name) {
-    return readOnly.getShapeKeyFrames(name);
+  public NavigableMap<Integer, KeyFrame> getShapeKeyFrames(String name) {
+    return model.getShapeKeyFrames(name);
   }
 
   @Override
   public Map<String, KeyFrame> getShapesAtTick(int tick) {
-    return readOnly.getShapesAtTick(tick);
+    return model.getShapesAtTick(tick);
   }
 
   @Override
@@ -64,11 +59,16 @@ public class ReadOnlyModel implements Animator {
 
   @Override
   public CanvasDims getCanvasDims() {
-    return readOnly.getCanvasDims();
+    return model.getCanvasDims();
   }
 
   @Override
   public void setCanvasDims(CanvasDims dims) {
     throw new UnsupportedOperationException("You cannot modify the ReadOnly model");
+  }
+
+  @Override
+  public Map<String, ShapeType> getShapes() {
+    return model.getShapes();
   }
 }

@@ -54,12 +54,10 @@ public class SvgView implements IView {
    * Generates the svg for a shape with the specified parameters, including the animation tags it
    * needs.
    *
-   * @param shapeType      The type of the shape.
-   * @param name           The name of the shape.
-   * @param keyFrames      The key frames associated with the shape.
-   * @param ticksPerSecond The tick rate of the animation.
-   * @return A string containing the shape tag enclosing the animation tags for the shape based on
-   * its key frames.
+   * @param shapeType          The type of the shape.
+   * @param name               The name of the shape.
+   * @param keyFrames          The key frames associated with the shape.
+   * @param ticksPerSecond     The tick rate of the animation.
    */
   private String makeSvgShape(ShapeType shapeType, String name, NavigableMap<Integer,
       KeyFrame> keyFrames, int ticksPerSecond) {

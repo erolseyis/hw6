@@ -12,10 +12,17 @@ import view.IView;
 import view.ViewCreator;
 
 /**
- * Main class which the view is run from.
+ * Main class which the view is run from. Desired output is formed according to the arguments that
+ * are taken from the user.
  */
+
 public class Excellence {
 
+  /**
+   * Runs the entire animation software.
+   *
+   * @param args arguments by the user.
+   */
   public static void main(String[] args) throws OperationNotSupportedException {
     String in = null;
     String viewName = null;
@@ -61,7 +68,7 @@ public class Excellence {
     try {
       view.setOutput(w);
     } catch (UnsupportedOperationException e) {
-
+      System.out.println("Something went wrong.");
     }
 
     view.render(animation, speed);

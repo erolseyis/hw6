@@ -17,18 +17,23 @@ import model.ShapeType;
 
 /**
  * This panel represents the region where the lines of the turtle must be drawn.
- * <p>
- * If one has to create a container that makes custom drawing, the conventional way is to create a
- * class that extends JPanel or JLabel
+ *
+ * <p>If one has to create a container that makes custom drawing, the conventional way is to
+ * create a class that extends JPanel or JLabel
  */
 public class AnimationPanel extends JPanel {
+
   private Animator model;
   int xOffset;
   int yOffset;
   private int tick;
-  private int ticksPerSecond;
   Timer timer;
 
+  /**
+   * Constructor.
+   *
+   * @param model model that is used to construct the AnimationPanel.
+   */
   public AnimationPanel(Animator model) {
     super();
     if (model == null) {
@@ -55,7 +60,6 @@ public class AnimationPanel extends JPanel {
    * @param ticksPerSecond The new tick rate.
    */
   public void setTicksPerSecond(int ticksPerSecond) {
-    this.ticksPerSecond = ticksPerSecond;
     // 1/ticks per second * 1000 = ms per tick
     timer = new Timer(1000 / ticksPerSecond, e -> {
       repaint();
