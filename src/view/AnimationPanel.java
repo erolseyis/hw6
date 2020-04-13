@@ -40,7 +40,6 @@ public class AnimationPanel extends JPanel {
     this.tick = 1;
     this.xOffset = this.model.getCanvasDims().getX();
     this.yOffset = this.model.getCanvasDims().getY();
-    this.ticksPerSecond = 1;
     this.looping = false;
     this.endTick = this.getEndTick();
   }
@@ -80,17 +79,18 @@ public class AnimationPanel extends JPanel {
   }
 
   /**
-   * Sets the tick rate of the animation and refreshes the panel to make the change take hold.
-   *
-   * @param ticksPerSecond The new tick rate.
+   * Refresh the timer.
    */
-  public void setTicksPerSecond(int ticksPerSecond) {
+  public void refreshTimer() {
     // 1/ticks per second * 1000 = ms per tick
-    timer = new Timer(1000 / ticksPerSecond, e -> {
+    timer = new Timer(1000 / this.ticksPerSecond, e -> {
       repaint();
       this.tick++;
-      if (this.tick == endTick && looping) {
-        this.tick = 0;
+      System.out.println("Tick: " + tick);
+      System.out.println("TPS: " + ticksPerSecond);
+      System.out.println("Delay: " + timer.getDelay());
+      if (this.tick >= endTick && looping) {
+        this.tick = 1;
       }
     });
   }
@@ -99,7 +99,9 @@ public class AnimationPanel extends JPanel {
    * Make the animation go faster.
    */
   public void faster() {
-    this.setTicksPerSecond(this.ticksPerSecond + 5);
+    this.ticksPerSecond = this.ticksPerSecond + 5;
+    System.out.println(ticksPerSecond);
+    this.refreshTimer();
   }
 
   /**
@@ -107,8 +109,18 @@ public class AnimationPanel extends JPanel {
    */
   public void slower() {
     if (this.ticksPerSecond >= 6) {
-      this.setTicksPerSecond(this.ticksPerSecond - 5);
+      this.ticksPerSecond = this.ticksPerSecond - 5;
+      System.out.println(ticksPerSecond);
+      this.refreshTimer();
     }
+  }
+
+  public void setTicksPerSecond(int ticksPerSecond) {
+    this.ticksPerSecond = ticksPerSecond;
+  }
+
+  public int getTicksPerSecond() {
+    return ticksPerSecond;
   }
 
   /**
@@ -128,7 +140,6 @@ public class AnimationPanel extends JPanel {
     for (Map.Entry<String, KeyFrame> shape :
             this.model.getShapesAtTick(this.tick).entrySet()) {
       g2d.setColor(shape.getValue().getColor());
-      System.out.println(shape.getKey());
       if (this.model.getShapeType(shape.getKey()).equals(ShapeType.RECTANGLE)) {
         g2d.fillRect(shape.getValue().getPosition().getX() - xOffset,
                 shape.getValue().getPosition().getY() - yOffset,

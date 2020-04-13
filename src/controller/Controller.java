@@ -1,44 +1,48 @@
 package controller;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.*;
 
 import model.Animator;
+import model.ReadOnlyModel;
+import view.EditorView;
 import view.IView;
 
+/**
+ * Controls app and communication between view and model.
+ */
 public class Controller implements ActionListener {
 
   private Animator model;
   private IView view;
 
+
+
+  /**
+   * Constructs a Controller.
+   * @param model The animation model.
+   * @param view The animation view.
+   * @param speed The tick rate.
+   * @param out The output location.
+   */
   public Controller(Animator model, IView view, int speed, Appendable out) {
     this.model = model;
     this.view = view;
     view.setListener(this);
     view.setOutput(out);
-    view.render(model, speed);
+    view.render(new ReadOnlyModel(this.model), speed);
   }
-
-
-//  public void runViewAnimation(BasicAnimator model, int speed, String fn, Appendable a) {
-//    IView v = new VisualView();
-//    Timer t = new Timer(speed, new ActionListener() {
-//      int tick = 0;
-//
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        v.render(model, speed);
-//        tick++;
-//      }
-//    });
-//    t.start();
-//  }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      // TODO modifying keyframes and model-involved operations
-    }
+//    switch (e.getActionCommand()) {
+//      case
+//    }
   }
 
 

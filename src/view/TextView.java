@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.event.ActionListener;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;
@@ -108,5 +109,12 @@ public class TextView implements IView {
   @Override
   public void setOutput(Appendable w) {
     this.w = w;
+  }
+
+  @Override
+  public void setListener(ActionListener listener) {
+    // doing nothing isn't the best option but we didn't have time to implement the strategy
+    // pattern or anything that would've made this unnecessary while allowing the controller to
+    // work on any views
   }
 }
