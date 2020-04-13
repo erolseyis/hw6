@@ -36,6 +36,7 @@ public class CanvasDims {
 
   /**
    * Set x value.
+   *
    * @param x The x value.
    */
   public void setX(int x) {

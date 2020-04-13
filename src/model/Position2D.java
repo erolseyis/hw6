@@ -22,6 +22,7 @@ public class Position2D {
 
   /**
    * Gets the x value.
+   *
    * @return The x value.
    */
   public int getX() {
@@ -30,6 +31,7 @@ public class Position2D {
 
   /**
    * Gets the y value.
+   *
    * @return The y value.
    */
   public int getY() {

@@ -3,14 +3,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.naming.OperationNotSupportedException;
-
+import controller.Controller;
 import model.Animator;
 import model.BasicAnimator;
 import util.AnimationReader;
 import view.IView;
 import view.ViewCreator;
 
+/**
+ * Main class that accepts command line args and kicks off app.
+ */
 public class Excellence {
   public static void main(String[] args) {
     String in = null;
@@ -34,6 +36,7 @@ public class Excellence {
         }
       }
     }
+
     Readable r;
     Appendable w = System.out;
 
@@ -53,16 +56,6 @@ public class Excellence {
 
     Animator animation = AnimationReader.parseFile(r, new BasicAnimator.BasicAnimationBuilder());
     IView view = ViewCreator.create(viewName);
-
-    try {
-      view.setOutput(w);
-    } catch (OperationNotSupportedException e) {
-
-    }
-
-    view.render(animation, speed);
-
+    Controller c = new Controller(animation, view, speed, w);
   }
-
-
 }

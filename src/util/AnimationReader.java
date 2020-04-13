@@ -33,8 +33,7 @@ public class AnimationReader {
    * @param <Doc>    The main model interface type describing animations
    * @return
    */
-  public static <Doc> Doc parseFile(Readable readable, AnimationBuilder<Doc> builder)
-      throws OperationNotSupportedException {
+  public static <Doc> Doc parseFile(Readable readable, AnimationBuilder<Doc> builder) {
     Objects.requireNonNull(readable, "Must have non-null readable source");
     Objects.requireNonNull(builder, "Must provide a non-null AnimationBuilder");
     Scanner s = new Scanner(readable);
@@ -68,8 +67,7 @@ public class AnimationReader {
     builder.setBounds(vals[0], vals[1], vals[2], vals[3]);
   }
 
-  private static <Doc> void readShape(Scanner s, AnimationBuilder<Doc> builder)
-      throws OperationNotSupportedException {
+  private static <Doc> void readShape(Scanner s, AnimationBuilder<Doc> builder) {
     String name;
     String type;
     if (s.hasNext()) {

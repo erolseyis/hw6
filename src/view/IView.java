@@ -1,7 +1,6 @@
 package view;
 
-
-import javax.naming.OperationNotSupportedException;
+import java.awt.event.ActionListener;
 
 import model.Animator;
 
@@ -11,8 +10,26 @@ import model.Animator;
  */
 public interface IView {
 
-  void render(Animator animation, int ticksPerSecond);
+  /**
+   * Performs whatever actions are necessary for the user to see the output of the view, depending
+   * on the type of view.
+   *
+   * @param model The animation model.
+   * @param ticksPerSecond The number of ticks in a second.
+   */
+  void render(Animator model, int ticksPerSecond);
 
-  void setOutput(Appendable w) throws OperationNotSupportedException;
+  /**
+   * Sets the output path for any files that may or may not be written by the view.
+   *
+   * @param w The object to which the view should output its text.
+   */
+  void setOutput(Appendable w);
 
+  /**
+   * Add some actionListener (the controller) as a listener for events that involve the model.
+   *
+   * @param listener A controller.
+   */
+  public void setListener(ActionListener listener);
 }
